@@ -1,0 +1,7 @@
+# ddns-updater service
+ddns-updater/*
+!ddns-updater/config.sample.json
+
+# let's encrypt service
+letsencrypt/*
+!letsencrypt/.keep

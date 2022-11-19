@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+  dockerproxy:
+    image: tecnativa/docker-socket-proxy:latest
+    container_name: dockerproxy
+    restart: always
+    networks:
+      - traefik
+    ports:
+      - 2375
+    environment:
+      CONTAINERS: 1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  ddns-updater:
+    image: qmcgaw/ddns-updater:latest
+    container_name: ddns-updater
+    ports:
+      - 8000:8000
+    volumes:
+      - ./ddns-updater:/updater/data
+    restart: always
+
+  traefik:
+    image: traefik:v2.4.8
+    container_name: traefik
+    restart: always
+    networks:
+      - default
+      - traefik
+    depends_on:
+      - dockerproxy
+    command:
+      # - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.endpoint=tcp://dockerproxy:2375"
+      - "--providers.docker.network=traefik"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=acme.home.100terres.com@100terres.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+      - 9999:9999
+    volumes:
+      - ./letsencrypt:/letsencrypt
+
+networks:
+  default:
+    external:
+      name: web
+  traefik:
+    name: traefik
