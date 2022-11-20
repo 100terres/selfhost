@@ -1,9 +1,9 @@
 version: "3"
 
 services:
-  dockerproxy:
+  docker-socket-proxy:
     image: tecnativa/docker-socket-proxy:latest
-    container_name: dockerproxy
+    container_name: docker-socket-proxy
     restart: always
     networks:
       - traefik
@@ -14,30 +14,30 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  ddns-updater:
+  ddns:
     image: qmcgaw/ddns-updater:latest
-    container_name: ddns-updater
+    container_name: ddns
     ports:
       - 8000:8000
     volumes:
-      - ./ddns-updater:/updater/data
+      - ./ddns:/updater/data
     restart: always
 
   traefik:
-    image: traefik:v2.4.8
+    image: traefik:v2.9.5
     container_name: traefik
     restart: always
     networks:
       - default
       - traefik
     depends_on:
-      - dockerproxy
+      - docker-socket-proxy
     command:
       # - "--log.level=DEBUG"
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.endpoint=tcp://dockerproxy:2375"
+      - "--providers.docker.endpoint=tcp://docker-socket-proxy:2375"
       - "--providers.docker.network=traefik"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
@@ -57,7 +57,6 @@ services:
 
 networks:
   default:
-    external:
-      name: web
+    name: web
   traefik:
     name: traefik
