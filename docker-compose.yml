@@ -23,6 +23,37 @@ services:
       - ./ddns:/updater/data
     restart: always
 
+  postgres:
+    image: postgres:14.6-alpine
+    container_name: postgres
+    restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    secrets:
+      - postgres-password
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-password
+
+  redis:
+    image: redis:7.0.5-alpine
+    container_name: redis
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+    volumes:
+      - ./redis/data:/data
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    restart: always
+    ports:
+      - 8888:8080
+
   traefik:
     image: traefik:v2.9.5
     container_name: traefik
@@ -60,3 +91,7 @@ networks:
     name: web
   traefik:
     name: traefik
+
+secrets:
+  postgres-password:
+    file: ./postgres/secrets/postgres-password.txt

@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  mastodon-web:
+    image: tootsuite/mastodon:v4.0.2
+    container_name: mastodon-web
+    restart: always
+    env_file: .env.production
+    command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost:3000/health || exit 1"]
+    expose:
+      - "3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.mastodon-web.loadbalancer.server.port=3000"
+      - "traefik.http.routers.mastodon-web.rule=Host(`100terres.net`)"
+      - "traefik.http.routers.mastodon-web.entrypoints=websecure"
+      - "traefik.http.routers.mastodon-web.tls.certresolver=myresolver"
+    volumes:
+      - ./data/public/system:/mastodon/public/system
+
+  mastodon-streaming:
+    image: tootsuite/mastodon:v4.0.2
+    container_name: mastodon-streaming
+    restart: always
+    env_file: .env.production
+    command: node ./streaming
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1"]
+    expose:
+      - "4000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.mastodon-streaming.loadbalancer.server.port=4000"
+      - "traefik.http.routers.mastodon-streaming.rule=(Host(`100terres.net`) && PathPrefix(`/api/v1/streaming`))"
+      - "traefik.http.routers.mastodon-streaming.entrypoints=websecure"
+      - "traefik.http.routers.mastodon-streaming.tls.certresolver=myresolver"
+
+  mastodon-sidekiq:
+    image: tootsuite/mastodon:v4.0.2
+    container_name: mastodon-sidekiq
+    restart: always
+    env_file: .env.production
+    command: bundle exec sidekiq
+    volumes:
+      - ./data/public/system:/mastodon/public/system
+
+networks:
+  default:
+    name: web

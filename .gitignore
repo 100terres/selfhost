@@ -5,3 +5,15 @@ ddns/*
 # let's encrypt service
 letsencrypt/*
 !letsencrypt/.keep
+
+# postgres
+mastodon/data/*
+.env.production
+
+# redis
+redis/*
+!redis/.keep
+
+# postgres
+postgres/*
+!postgres/secrets/postgres-password.sample.txt
