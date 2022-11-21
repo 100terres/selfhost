@@ -14,7 +14,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.mastodon-web.loadbalancer.server.port=3000"
-      - "traefik.http.routers.mastodon-web.rule=Host(`100terres.net`)"
+      - "traefik.http.routers.mastodon-web.rule=Host(`mastodon.fedi.100terres.com`)"
       - "traefik.http.routers.mastodon-web.entrypoints=websecure"
       - "traefik.http.routers.mastodon-web.tls.certresolver=myresolver"
     volumes:
@@ -33,7 +33,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.mastodon-streaming.loadbalancer.server.port=4000"
-      - "traefik.http.routers.mastodon-streaming.rule=(Host(`100terres.net`) && PathPrefix(`/api/v1/streaming`))"
+      - "traefik.http.routers.mastodon-streaming.rule=(Host(`mastodon.fedi.100terres.com`) && PathPrefix(`/api/v1/streaming`))"
       - "traefik.http.routers.mastodon-streaming.entrypoints=websecure"
       - "traefik.http.routers.mastodon-streaming.tls.certresolver=myresolver"
 
