@@ -20,4 +20,4 @@ pgadmin/*
 
 # postgres
 postgres/*
-!postgres/secrets/postgres-password.sample.txt
+!postgres/.keep
