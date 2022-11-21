@@ -14,6 +14,10 @@ mastodon/data/*
 redis/*
 !redis/.keep
 
+# pgadmin
+pgadmin/*
+!pgadmin/.keep
+
 # postgres
 postgres/*
 !postgres/secrets/postgres-password.sample.txt

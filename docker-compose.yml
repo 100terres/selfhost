@@ -23,6 +23,19 @@ services:
       - ./ddns:/updater/data
     restart: always
 
+  # local only for now
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: always
+    ports:
+      - 8888:80
+    secrets:
+      - pgadmin-password
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=gab@100terres.com
+      - PGADMIN_DEFAULT_PASSWORD_FILE=/run/secrets/pgadmin-password
+
   postgres:
     image: postgres:14.6-alpine
     container_name: postgres
@@ -46,13 +59,6 @@ services:
       test: ["CMD", "redis-cli", "ping"]
     volumes:
       - ./redis/data:/data
-
-  adminer:
-    image: adminer:latest
-    container_name: adminer
-    restart: always
-    ports:
-      - 8888:8080
 
   traefik:
     image: traefik:v2.9.5
@@ -93,5 +99,7 @@ networks:
     name: traefik
 
 secrets:
+  pgadmin-password:
+    file: ./pgadmin/secrets/pgadmin-password.txt
   postgres-password:
     file: ./postgres/secrets/postgres-password.txt
