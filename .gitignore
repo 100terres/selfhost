@@ -1,23 +1,23 @@
 # ddns service
-ddns/*
-!ddns/config.sample.json
+core/ddns/*
+!core/ddns/config.sample.json
 
 # let's encrypt service
-letsencrypt/*
-!letsencrypt/.keep
+core/letsencrypt/*
+!core/letsencrypt/.keep
 
-# postgres
+# mastodon
 mastodon/data/*
 .env.production
 
 # redis
-redis/*
-!redis/.keep
+core/redis/*
+!core/redis/.keep
 
 # pgadmin
-pgadmin/*
-!pgadmin/.keep
+core/pgadmin/*
+!core/pgadmin/.keep
 
 # postgres
-postgres/*
-!postgres/.keep
+core/postgres/*
+!core/postgres/.keep
