@@ -1,0 +1,2 @@
+docker compose -f services/mastodon/docker-compose.yml stop
+docker compose -f services/core/docker-compose.yml stop
