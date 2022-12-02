@@ -30,6 +30,10 @@ services:
     restart: always
     ports:
       - 8888:80
+    volumes:
+      # https://github.com/pgadmin-org/pgadmin4/blob/d2c3ab884450ad4dfacd8e5cb4d4b15c0bbe60f1/Dockerfile#L197
+      # chown 5050:root -R ./pgadmin/data
+      - ./pgadmin/data:/var/lib/pgadmin
     secrets:
       - pgadmin-password
     environment:
