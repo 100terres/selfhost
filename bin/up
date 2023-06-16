@@ -1,2 +1,3 @@
-docker compose -f services/core/docker-compose.yml up -d
-docker compose -f services/mastodon/docker-compose.yml up -d
+docker compose -f services/core/docker-compose.yml up -d --remove-orphans
+docker compose -f services/mastodon/docker-compose.yml up -d --remove-orphans
+docker compose -f services/self-hosting-demo/docker-compose.yml up -d --remove-orphans

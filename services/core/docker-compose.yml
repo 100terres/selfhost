@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
   docker-socket-proxy:
@@ -6,7 +6,7 @@ services:
     container_name: docker-socket-proxy
     restart: always
     networks:
-      - traefik
+      - docker-socket-proxy
     ports:
       - 2375
     environment:
@@ -70,7 +70,7 @@ services:
     restart: always
     networks:
       - default
-      - traefik
+      - docker-socket-proxy
     depends_on:
       - docker-socket-proxy
     command:
@@ -79,15 +79,15 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.endpoint=tcp://docker-socket-proxy:2375"
-      - "--providers.docker.network=traefik"
+      - "--providers.docker.network=docker-socket-proxy"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.myresolver.acme.email=acme.home.100terres.com@100terres.com"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+      # - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.letsencrypt.acme.email=letsencrypt@100terres.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
     ports:
       - 80:80 # http
       - 443:443 # https
@@ -97,9 +97,9 @@ services:
 
 networks:
   default:
-    name: web
-  traefik:
-    name: traefik
+    name: intranet
+  docker-socket-proxy:
+    name: docker-socket-proxy
 
 secrets:
   pgadmin-password:
