@@ -30,6 +30,15 @@
     {
       "provider": "cloudflare",
       "zone_identifier": "REDACTED",
+      "domain": "100terres.com",
+      "host": "self-hosting-demo",
+      "ttl": 1,
+      "token": "REDACTED",
+      "ip_version": "ipv4"
+    },
+    {
+      "provider": "cloudflare",
+      "zone_identifier": "REDACTED",
       "domain": "100terres.net",
       "host": "@",
       "ttl": 1,

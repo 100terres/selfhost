@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  self-hosting-demo:
+    image: traefik/whoami:latest
+    labels:
+      # Let Traefik knows it could redirect request to this
+      # service
+      - "traefik.enable=true"
+
+      # Define how Traefik should route traffic to this service.
+      # In this case it's with the domain name
+      # `whoami.example.com`. We could as well use a path e.g.
+      # `example.com/whoami`. To achevie this read Traefik's
+      # documentation here:
+      # https://doc.traefik.io/traefik/routing/routers/
+      - "traefik.http.routers.self-hosting-demo.rule=Host(`self-hosting-demo.100terres.com`)"
+      - "traefik.http.routers.self-hosting-demo.entrypoints=websecure"
+      - "traefik.http.routers.self-hosting-demo.tls.certresolver=letsencrypt"
+
+networks:
+  default:
+    name: intranet
