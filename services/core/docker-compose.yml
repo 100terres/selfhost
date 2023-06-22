@@ -51,9 +51,33 @@ services:
     secrets:
       - postgres-password
     environment:
+      - TZ=UTC
+      - PGTZ=UTC
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-password
+
+  postgres-backup:
+    image: tiredofit/db-backup:3.9.6
+    container_name: postgres-backup
+    restart: always
+    volumes:
+      - ./postgres-backup/data:/backup
+    secrets:
+      - postgres-password
+    environment:
+      - CONTAINER_ENABLE_MONITORING=FALSE
+      - DB_TYPE=pgsql
+      - DB_HOST=postgres
+      - DB_NAME=ALL
+      - DB_USER=postgres
+      - DB_PASS_FILE=/run/secrets/postgres-password
+      - DB_DUMP_FREQ=180 # backup every 3 hours
+      - DB_CLEANUP_TIME=10080 # keep backups for a week
+      - CREATE_LATEST_SYMLINK=FALSE
+      - CHECKSUM=SHA1
+      - COMPRESSION=GZ
+      - GZ_RSYNCABLE=TRUE
 
   redis:
     image: redis:7.0.11-alpine
@@ -63,6 +87,23 @@ services:
       test: ["CMD", "redis-cli", "ping"]
     volumes:
       - ./redis/data:/data
+
+  redis-backup:
+    image: tiredofit/db-backup:3.9.6
+    container_name: redis-backup
+    restart: always
+    volumes:
+      - ./redis-backup/data:/backup
+    environment:
+      - CONTAINER_ENABLE_MONITORING=FALSE
+      - DB_TYPE=redis
+      - DB_HOST=redis
+      - DB_DUMP_FREQ=60 # backup every hour
+      - DB_CLEANUP_TIME=10080 # keep backups for a week
+      - CREATE_LATEST_SYMLINK=FALSE
+      - CHECKSUM=SHA1
+      - COMPRESSION=GZ
+      - GZ_RSYNCABLE=TRUE
 
   traefik:
     image: traefik:v2.10.3
