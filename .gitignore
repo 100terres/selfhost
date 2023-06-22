@@ -8,11 +8,17 @@ services/core/letsencrypt/*
 services/core/redis/*
 !services/core/redis/.keep
 
+services/core/redis-backup/*
+!services/core/redis-backup/.keep
+
 services/core/pgadmin/*
 !services/core/pgadmin/.keep
 
 services/core/postgres/*
 !services/core/postgres/.keep
+
+services/core/postgres-backup/*
+!services/core/postgres-backup/.keep
 
 # mastodon
 services/mastodon/data/*
