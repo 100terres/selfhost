@@ -41,13 +41,15 @@ services:
       - PGADMIN_DEFAULT_PASSWORD_FILE=/run/secrets/pgadmin-password
 
   postgres:
-    image: postgres:14.8-alpine
+    # How to upgrade to a major version
+    # https://github.com/tianon/docker-postgres-upgrade
+    image: postgres:15.3-alpine
     container_name: postgres
     restart: always
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
     volumes:
-      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/15/data:/var/lib/postgresql/data
     secrets:
       - postgres-password
     environment:
