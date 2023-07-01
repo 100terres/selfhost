@@ -14,7 +14,7 @@ services:
       # `example.com/whoami`. To achevie this read Traefik's
       # documentation here:
       # https://doc.traefik.io/traefik/routing/routers/
-      - "traefik.http.routers.self-hosting-demo.rule=Host(`self-hosting-demo.100terres.com`)"
+      - "traefik.http.routers.self-hosting-demo.rule=Host(`${DOMAIN_NAME}`)"
       - "traefik.http.routers.self-hosting-demo.entrypoints=websecure"
       - "traefik.http.routers.self-hosting-demo.tls.certresolver=letsencrypt"
 

@@ -22,4 +22,9 @@ services/core/postgres-backup/*
 
 # mastodon
 services/mastodon/data/*
-services/mastodon/.env.production
+
+# env
+.env
+.env.*
+!.env.sample
+!.env.*.sample
