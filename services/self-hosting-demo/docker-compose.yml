@@ -3,6 +3,8 @@ version: "3.8"
 services:
   self-hosting-demo:
     image: traefik/whoami:latest
+    container_name: self-hosting-demo
+    restart: always
     labels:
       # Let Traefik knows it could redirect request to this
       # service
