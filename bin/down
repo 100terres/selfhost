@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-docker compose --file services/core/docker-compose.yml down
 docker compose --file services/mastodon/docker-compose.yml down
 docker compose --file services/self-hosting-demo/docker-compose.yml down
+docker compose --file services/core/docker-compose.yml down
