@@ -1,0 +1,8 @@
+{
+    "files.watcherExclude": {
+        "services/core/postgres-backup/data/**": true,
+        "services/core/postgres/data/**": true,
+        "services/core/redis-backup/data/**": true,
+        "services/core/redis/data/**": true
+    }
+}
