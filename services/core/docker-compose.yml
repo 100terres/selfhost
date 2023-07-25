@@ -108,7 +108,7 @@ services:
       - GZ_RSYNCABLE=TRUE
 
   traefik:
-    image: traefik:v2.10.3
+    image: traefik:v2.10.4
     container_name: traefik
     restart: always
     networks:
