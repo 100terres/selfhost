@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   professional-mastodon-instance-web:
-    image: tootsuite/mastodon:v4.1.3
+    image: tootsuite/mastodon:v4.1.5
     container_name: professional-mastodon-instance-web
     restart: always
     env_file: .env
@@ -21,7 +21,7 @@ services:
       - ./data/public/system:/mastodon/public/system
 
   professional-mastodon-instance-streaming:
-    image: tootsuite/mastodon:v4.1.3
+    image: tootsuite/mastodon:v4.1.5
     container_name: professional-mastodon-instance-streaming
     restart: always
     env_file: .env
@@ -38,7 +38,7 @@ services:
       - "traefik.http.routers.professional-mastodon-instance-streaming.tls.certresolver=letsencrypt"
 
   professional-mastodon-instance-sidekiq:
-    image: tootsuite/mastodon:v4.1.3
+    image: tootsuite/mastodon:v4.1.5
     container_name: professional-mastodon-instance-sidekiq
     restart: always
     env_file: .env
