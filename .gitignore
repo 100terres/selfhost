@@ -21,7 +21,8 @@ services/core/postgres-backup/*
 !services/core/postgres-backup/.keep
 
 # mastodon
-services/mastodon/data/*
+services/professional-mastodon-instance/data/*
+services/personal-mastodon-instance/data/*
 
 # env
 .env

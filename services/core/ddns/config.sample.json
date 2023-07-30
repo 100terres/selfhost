@@ -44,6 +44,15 @@
       "ttl": 1,
       "token": "REDACTED",
       "ip_version": "ipv4"
+    },
+    {
+      "provider": "cloudflare",
+      "zone_identifier": "REDACTED",
+      "domain": "100terres.social",
+      "host": "@",
+      "ttl": 1,
+      "token": "REDACTED",
+      "ip_version": "ipv4"
     }
   ]
 }
