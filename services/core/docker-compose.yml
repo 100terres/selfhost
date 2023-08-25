@@ -60,7 +60,7 @@ services:
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-password
 
   postgres-backup:
-    image: tiredofit/db-backup:3.9.6
+    image: tiredofit/db-backup:3.9.11
     container_name: postgres-backup
     restart: always
     volumes:
@@ -91,7 +91,7 @@ services:
       - ./redis/data:/data
 
   redis-backup:
-    image: tiredofit/db-backup:3.9.6
+    image: tiredofit/db-backup:3.9.11
     container_name: redis-backup
     restart: always
     volumes:
