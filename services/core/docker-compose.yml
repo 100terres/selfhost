@@ -25,7 +25,7 @@ services:
 
   # local only for now
   pgadmin:
-    image: dpage/pgadmin4:7.4
+    image: dpage/pgadmin4:7.6
     container_name: pgadmin
     restart: always
     ports:
