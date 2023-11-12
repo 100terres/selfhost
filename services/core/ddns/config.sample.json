@@ -3,53 +3,8 @@
     {
       "provider": "cloudflare",
       "zone_identifier": "REDACTED",
-      "domain": "100terres.com",
-      "host": "*.fedi",
-      "ttl": 1,
-      "token": "REDACTED",
-      "ip_version": "ipv4"
-    },
-    {
-      "provider": "cloudflare",
-      "zone_identifier": "REDACTED",
-      "domain": "100terres.com",
-      "host": "home",
-      "ttl": 1,
-      "token": "REDACTED",
-      "ip_version": "ipv4"
-    },
-    {
-      "provider": "cloudflare",
-      "zone_identifier": "REDACTED",
-      "domain": "100terres.com",
-      "host": "*.home",
-      "ttl": 1,
-      "token": "REDACTED",
-      "ip_version": "ipv4"
-    },
-    {
-      "provider": "cloudflare",
-      "zone_identifier": "REDACTED",
-      "domain": "100terres.com",
-      "host": "self-hosting-demo",
-      "ttl": 1,
-      "token": "REDACTED",
-      "ip_version": "ipv4"
-    },
-    {
-      "provider": "cloudflare",
-      "zone_identifier": "REDACTED",
-      "domain": "100terres.net",
-      "host": "@",
-      "ttl": 1,
-      "token": "REDACTED",
-      "ip_version": "ipv4"
-    },
-    {
-      "provider": "cloudflare",
-      "zone_identifier": "REDACTED",
-      "domain": "100terres.social",
-      "host": "@",
+      "domain": "example.com",
+      "host": "subdomain",
       "ttl": 1,
       "token": "REDACTED",
       "ip_version": "ipv4"
