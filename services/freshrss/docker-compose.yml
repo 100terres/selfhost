@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  freshrss:
+    image: freshrss/freshrss:1.22.1
+    restart: unless-stopped
+    env_file: .env
+    logging:
+      options:
+        max-size: 10m
+    volumes:
+      - data:/var/www/FreshRSS/data
+      - extensions:/var/www/FreshRSS/extensions
+    environment:
+      TZ: America/Toronto
+      CRON_MIN: '3,33'
+    labels:
+      - traefik.enable=true
+      - traefik.http.middlewares.freshrssM1.compress=true
+      - traefik.http.middlewares.freshrssM2.headers.browserXssFilter=true
+      - traefik.http.middlewares.freshrssM2.headers.forceSTSHeader=true
+      - traefik.http.middlewares.freshrssM2.headers.frameDeny=true
+      - traefik.http.middlewares.freshrssM2.headers.referrerPolicy=no-referrer-when-downgrade
+      - traefik.http.middlewares.freshrssM2.headers.stsSeconds=3153600
+      - traefik.http.routers.freshrss.entrypoints=websecure
+      - traefik.http.routers.freshrss.tls.certresolver=letsencrypt
+      - traefik.http.routers.freshrss.middlewares=freshrssM1,freshrssM2
+      - traefik.http.routers.freshrss.rule=Host(`${DOMAIN}`)
+
+volumes:
+  data:
+  extensions:
+
+networks:
+  default:
+    name: intranet
