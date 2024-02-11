@@ -2,7 +2,7 @@ version: "3"
 
 services:
   mobilizon-server:
-    image: framasoft/mobilizon:4.0.1
+    image: framasoft/mobilizon:4.0.2
     container_name: mobilizon-server
     restart: always
     env_file: .env
