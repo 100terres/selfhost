@@ -1,0 +1,74 @@
+version: "3"
+
+services:
+  mobilizon-server:
+    image: framasoft/mobilizon:4.0.1
+    container_name: mobilizon-server
+    restart: always
+    env_file: .env
+    volumes:
+      - ./server/uploads:/var/lib/mobilizon/uploads
+    expose:
+      - "4000"
+    depends_on:
+      - mobilizon-postgres
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.mobilizon-server.loadbalancer.server.port=4000"
+      - "traefik.http.routers.mobilizon-server.rule=Host(`${MOBILIZON_INSTANCE_HOST}`)"
+      - "traefik.http.routers.mobilizon-server.entrypoints=websecure"
+      - "traefik.http.routers.mobilizon-server.tls.certresolver=letsencrypt"
+    environment:
+      - MOBILIZON_INSTANCE_NAME
+      - MOBILIZON_INSTANCE_HOST
+      - MOBILIZON_INSTANCE_LISTEN_IP
+      - MOBILIZON_INSTANCE_PORT
+      - MOBILIZON_INSTANCE_EMAIL
+      - MOBILIZON_REPLY_EMAIL
+      - MOBILIZON_INSTANCE_REGISTRATIONS_OPEN
+      - MOBILIZON_DATABASE_USERNAME
+      - MOBILIZON_DATABASE_PASSWORD
+      - MOBILIZON_DATABASE_DBNAME
+      - MOBILIZON_DATABASE_HOST
+      - MOBILIZON_DATABASE_PORT
+      - MOBILIZON_DATABASE_SSL
+      - MOBILIZON_INSTANCE_SECRET_KEY_BASE
+      - MOBILIZON_INSTANCE_SECRET_KEY
+      - MOBILIZON_LOGLEVEL
+      - MOBILIZON_SMTP_SERVER
+      - MOBILIZON_SMTP_PORT
+      - MOBILIZON_SMTP_SSL
+      - MOBILIZON_SMTP_TLS
+      - MOBILIZON_SMTP_USERNAME
+      - MOBILIZON_SMTP_PASSWORD
+      - MOBILIZON_UPLOADS
+      - MOBILIZON_UPLOADS_EXPORTS
+      - MOBILIZON_TIMEZONES_DIR
+      - MOBILIZON_TZDATA_DIR
+
+  mobilizon-postgres:
+    # How to upgrade to a major version
+    # https://github.com/tianon/docker-postgres-upgrade
+    image: postgis/postgis:16-3.4-alpine
+    container_name: mobilizon-postgres
+    restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+    volumes:
+      - ./postgres/16/data:/var/lib/postgresql/data
+    secrets:
+      - postgres-password
+    environment:
+      - TZ=UTC
+      - PGTZ=UTC
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-password
+
+networks:
+  default:
+    name: intranet
+
+secrets:
+  postgres-password:
+    file: ./postgres/secrets/postgres-password.txt
