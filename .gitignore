@@ -24,6 +24,13 @@ services/core/postgres-backup/*
 services/professional-mastodon-instance/data/*
 services/personal-mastodon-instance/data/*
 
+# mobilizon
+services/mobilizon/postgres/*
+!services/mobilizon/postgres/.keep
+!services/mobilizon/postgres/secrets/postgres-password.txt.sample
+services/mobilizon/server/*
+!services/mobilizon/server/.keep
+
 # env
 .env
 .env.*
