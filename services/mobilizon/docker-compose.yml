@@ -7,6 +7,8 @@ services:
     restart: always
     env_file: .env
     volumes:
+      # fix permission:
+      # sudo chown 65534:65534 ./server/uploads/
       - ./server/uploads:/var/lib/mobilizon/uploads
     expose:
       - "4000"
