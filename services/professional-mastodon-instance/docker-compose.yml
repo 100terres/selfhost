@@ -46,6 +46,21 @@ services:
     volumes:
       - ./data/public/system:/mastodon/public/system
 
+  # this is temporary
+  mastodon-old-domain:
+    image: traefik/whoami:latest
+    container_name: mastodon-old-domain
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.mastodon-old-domain-redirection.redirectregex.regex=^https?://${ALTERNATE_DOMAINS}(.*)"
+      - "traefik.http.middlewares.mastodon-old-domain-redirection.redirectregex.replacement=https://${WEB_DOMAIN}$${1}"
+      - "traefik.http.middlewares.mastodon-old-domain-redirection.redirectregex.permanent=true"
+      - "traefik.http.routers.mastodon-old-domain.rule=Host(`${ALTERNATE_DOMAINS}`)"
+      - "traefik.http.routers.mastodon-old-domain.entrypoints=websecure"
+      - "traefik.http.routers.mastodon-old-domain.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.mastodon-old-domain.middlewares=mastodon-old-domain-redirection@docker"
+
 networks:
   default:
     name: intranet
