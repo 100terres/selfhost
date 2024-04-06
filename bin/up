@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 docker compose --file services/core/docker-compose.yml up -d --remove-orphans
-docker compose --file services/freshrss/docker-compose.yml up -d --remove-orphans
-docker compose --file services/mobilizon/docker-compose.yml up -d --remove-orphans
 docker compose --file services/personal-mastodon-instance/docker-compose.yml up -d --remove-orphans
 docker compose --file services/professional-mastodon-instance/docker-compose.yml up -d --remove-orphans
 docker compose --file services/self-hosting-demo/docker-compose.yml up -d --remove-orphans
