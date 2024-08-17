@@ -60,6 +60,7 @@ services:
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entrypoints.websecure.address=:443"
+      - "--entryPoints.websecure.http3"
       - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
       - "--certificatesresolvers.letsencrypt.acme.email=letsencrypt@100terres.com"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
