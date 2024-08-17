@@ -1,6 +1,6 @@
 services:
   self-hosting-demo:
-    image: traefik/whoami:latest
+    image: traefik/whoami:v1.10.2
     container_name: self-hosting-demo
     restart: always
     labels:
