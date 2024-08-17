@@ -13,7 +13,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   ddns:
-    image: qmcgaw/ddns-updater:2.6.0
+    image: qmcgaw/ddns-updater:v2.7.0
     container_name: ddns
     ports:
       - 8000:8000
