@@ -7,7 +7,8 @@
       "host": "subdomain",
       "ttl": 1,
       "token": "REDACTED",
-      "ip_version": "ipv4"
+      "ip_version": "ipv4",
+      "proxied": true
     }
   ]
 }

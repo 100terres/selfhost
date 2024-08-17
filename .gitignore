@@ -1,4 +1,6 @@
+# ----
 # core
+# ----
 services/core/ddns/*
 !services/core/ddns/config.sample.json
 
@@ -20,18 +22,45 @@ services/core/postgres/*
 services/core/postgres-backup/*
 !services/core/postgres-backup/.keep
 
-# mastodon
-services/professional-mastodon-instance/data/*
+# --------------------------
+# personal mastodon instance
+# --------------------------
+
 services/personal-mastodon-instance/data/*
 
-# mobilizon
-services/mobilizon/postgres/*
-!services/mobilizon/postgres/.keep
-!services/mobilizon/postgres/secrets/postgres-password.txt.sample
-services/mobilizon/server/*
-!services/mobilizon/server/.keep
+services/personal-mastodon-instance/postgres/*
+!services/personal-mastodon-instance/postgres/.keep
 
+services/personal-mastodon-instance/postgres-backup/*
+!services/personal-mastodon-instance/postgres-backup/.keep
+
+services/personal-mastodon-instance/redis/*
+!services/personal-mastodon-instance/redis/.keep
+
+services/personal-mastodon-instance/redis-backup/*
+!services/personal-mastodon-instance/redis-backup/.keep
+
+# ------------------------------
+# professional mastodon instance
+# ------------------------------
+
+services/professional-mastodon-instance/data/*
+
+services/professional-mastodon-instance/postgres/*
+!services/professional-mastodon-instance/postgres/.keep
+
+services/professional-mastodon-instance/postgres-backup/*
+!services/professional-mastodon-instance/postgres-backup/.keep
+
+services/professional-mastodon-instance/redis/*
+!services/professional-mastodon-instance/redis/.keep
+
+services/professional-mastodon-instance/redis-backup/*
+!services/professional-mastodon-instance/redis-backup/.keep
+
+# ---
 # env
+# ---
 .env
 .env.*
 !.env.sample

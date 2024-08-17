@@ -1,8 +1,6 @@
-version: "3.8"
-
 services:
   personal-mastodon-instance-web:
-    image: tootsuite/mastodon:v4.2.8
+    image: tootsuite/mastodon:v4.2.11
     container_name: personal-mastodon-instance-web
     restart: always
     env_file: .env
@@ -21,7 +19,7 @@ services:
       - ./data/public/system:/mastodon/public/system
 
   personal-mastodon-instance-streaming:
-    image: tootsuite/mastodon:v4.2.8
+    image: tootsuite/mastodon:v4.2.11
     container_name: personal-mastodon-instance-streaming
     restart: always
     env_file: .env
@@ -38,7 +36,7 @@ services:
       - "traefik.http.routers.personal-mastodon-instance-streaming.tls.certresolver=letsencrypt"
 
   personal-mastodon-instance-sidekiq:
-    image: tootsuite/mastodon:v4.2.8
+    image: tootsuite/mastodon:v4.2.11
     container_name: personal-mastodon-instance-sidekiq
     restart: always
     env_file: .env
@@ -46,6 +44,78 @@ services:
     volumes:
       - ./data/public/system:/mastodon/public/system
 
+  personal-mastodon-instance-postgres:
+    # How to upgrade to a major version
+    # https://github.com/tianon/docker-postgres-upgrade
+    image: postgres:15.4-alpine
+    container_name: personal-mastodon-instance-postgres
+    restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+    volumes:
+      - ./postgres/15/data:/var/lib/postgresql/data
+    secrets:
+      - postgres-password
+    environment:
+      - TZ=UTC
+      - PGTZ=UTC
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-password
+
+  personal-mastodon-instance-postgres-backup:
+    image: tiredofit/db-backup:3.9.11
+    container_name: personal-mastodon-instance-postgres-backup
+    restart: always
+    volumes:
+      - ./postgres-backup/data:/backup
+    secrets:
+      - postgres-password
+    environment:
+      - CONTAINER_ENABLE_MONITORING=FALSE
+      - DB_TYPE=pgsql
+      - DB_HOST=personal-mastodon-instance-postgres
+      - DB_NAME=ALL
+      - DB_USER=postgres
+      - DB_PASS_FILE=/run/secrets/postgres-password
+      - DB_DUMP_FREQ=180 # backup every 3 hours
+      - DB_CLEANUP_TIME=10080 # keep backups for a week
+      - CREATE_LATEST_SYMLINK=FALSE
+      - CHECKSUM=SHA1
+      - COMPRESSION=GZ
+      - GZ_RSYNCABLE=TRUE
+
+  personal-mastodon-instance-redis:
+    image: redis:7.2.0-alpine
+    container_name: personal-mastodon-instance-redis
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+    volumes:
+      - ./redis/data:/data
+
+  personal-mastodon-instance-redis-backup:
+    image: tiredofit/db-backup:3.9.11
+    container_name: personal-mastodon-instance-redis-backup
+    restart: always
+    volumes:
+      - ./redis-backup/data:/backup
+    environment:
+      - CONTAINER_ENABLE_MONITORING=FALSE
+      - DB_TYPE=redis
+      - DB_HOST=personal-mastodon-instance-redis
+      - DB_DUMP_FREQ=60 # backup every hour
+      - DB_CLEANUP_TIME=10080 # keep backups for a week
+      - CREATE_LATEST_SYMLINK=FALSE
+      - CHECKSUM=SHA1
+      - COMPRESSION=GZ
+      - GZ_RSYNCABLE=TRUE
+
 networks:
   default:
     name: intranet
+    external: true
+
+secrets:
+  postgres-password:
+    file: ./postgres/secrets/postgres-password.txt

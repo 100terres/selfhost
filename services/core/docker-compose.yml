@@ -1,8 +1,6 @@
-version: "3.8"
-
 services:
   docker-socket-proxy:
-    image: tecnativa/docker-socket-proxy:latest
+    image: tecnativa/docker-socket-proxy:0.1.2
     container_name: docker-socket-proxy
     restart: always
     networks:
@@ -15,7 +13,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   ddns:
-    image: qmcgaw/ddns-updater:latest
+    image: qmcgaw/ddns-updater:2.6.0
     container_name: ddns
     ports:
       - 8000:8000
@@ -23,101 +21,23 @@ services:
       - ./ddns:/updater/data
     restart: always
 
-  # local only for now
-  pgadmin:
-    image: dpage/pgadmin4:7.6
-    container_name: pgadmin
-    restart: always
-    ports:
-      - 8888:80
-    volumes:
-      # https://github.com/pgadmin-org/pgadmin4/blob/d2c3ab884450ad4dfacd8e5cb4d4b15c0bbe60f1/Dockerfile#L197
-      # chown 5050:root -R ./pgadmin/data
-      - ./pgadmin/data:/var/lib/pgadmin
-    secrets:
-      - pgadmin-password
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=gab@100terres.com
-      - PGADMIN_DEFAULT_PASSWORD_FILE=/run/secrets/pgadmin-password
-
-  postgres:
-    # How to upgrade to a major version
-    # https://github.com/tianon/docker-postgres-upgrade
-    image: postgres:15.4-alpine
-    container_name: postgres
-    restart: always
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
-    volumes:
-      - ./postgres/15/data:/var/lib/postgresql/data
-    secrets:
-      - postgres-password
-    environment:
-      - TZ=UTC
-      - PGTZ=UTC
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-password
-
-  postgres-backup:
-    image: tiredofit/db-backup:3.9.11
-    container_name: postgres-backup
-    restart: always
-    volumes:
-      - ./postgres-backup/data:/backup
-    secrets:
-      - postgres-password
-    environment:
-      - CONTAINER_ENABLE_MONITORING=FALSE
-      - DB_TYPE=pgsql
-      - DB_HOST=postgres
-      - DB_NAME=ALL
-      - DB_USER=postgres
-      - DB_PASS_FILE=/run/secrets/postgres-password
-      - DB_DUMP_FREQ=180 # backup every 3 hours
-      - DB_CLEANUP_TIME=10080 # keep backups for a week
-      - CREATE_LATEST_SYMLINK=FALSE
-      - CHECKSUM=SHA1
-      - COMPRESSION=GZ
-      - GZ_RSYNCABLE=TRUE
-
-  redis:
-    image: redis:7.2.0-alpine
-    container_name: redis
-    restart: always
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-    volumes:
-      - ./redis/data:/data
-
-  redis-backup:
-    image: tiredofit/db-backup:3.9.11
-    container_name: redis-backup
-    restart: always
-    volumes:
-      - ./redis-backup/data:/backup
-    environment:
-      - CONTAINER_ENABLE_MONITORING=FALSE
-      - DB_TYPE=redis
-      - DB_HOST=redis
-      - DB_DUMP_FREQ=60 # backup every hour
-      - DB_CLEANUP_TIME=10080 # keep backups for a week
-      - CREATE_LATEST_SYMLINK=FALSE
-      - CHECKSUM=SHA1
-      - COMPRESSION=GZ
-      - GZ_RSYNCABLE=TRUE
-
   traefik:
-    image: traefik:2.11.0
+    image: traefik:3.1.2
     container_name: traefik
     restart: always
+    labels:
+      # Whilist Cloudflare and local loopback IPs
+      # https://www.cloudflare.com/ips
+      # https://www.cloudflare.com/ips-v4
+      # https://www.cloudflare.com/ips-v6
+      - "traefik.http.middlewares.test-ipallowlist.ipallowlist.sourcerange=173.245.48.0/20,103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,141.101.64.0/18,108.162.192.0/18,190.93.240.0/20,188.114.96.0/20,197.234.240.0/22,198.41.128.0/17,162.158.0.0/15,104.16.0.0/13,104.24.0.0/14,172.64.0.0/13,131.0.72.0/22,2400:cb00::/32,2606:4700::/32,2803:f800::/32,2405:b500::/32,2405:8100::/32,2a06:98c0::/29,2c0f:f248::/32,127.0.0.1/8,::1/128,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7"
     networks:
       - default
       - docker-socket-proxy
     depends_on:
       - docker-socket-proxy
     command:
-      # - "--log.level=DEBUG"
+    # - "--log.level=DEBUG"
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
