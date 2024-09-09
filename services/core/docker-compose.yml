@@ -1,6 +1,6 @@
 services:
   docker-socket-proxy:
-    image: tecnativa/docker-socket-proxy:0.2.0
+    image: tecnativa/docker-socket-proxy:0.3.0
     container_name: docker-socket-proxy
     restart: always
     networks:
