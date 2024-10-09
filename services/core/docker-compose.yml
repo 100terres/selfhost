@@ -13,7 +13,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   ddns:
-    image: qmcgaw/ddns-updater:v2.7.0
+    image: qmcgaw/ddns-updater:v2.8.1
     container_name: ddns
     restart: always
     ports:
