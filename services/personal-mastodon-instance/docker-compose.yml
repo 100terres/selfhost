@@ -1,6 +1,6 @@
 services:
   personal-mastodon-instance-web:
-    image: ghcr.io/mastodon/mastodon-streaming:v4.3.0
+    image: ghcr.io/mastodon/mastodon:v4.3.0
     container_name: personal-mastodon-instance-web
     restart: always
     env_file: .env
