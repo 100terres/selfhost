@@ -24,7 +24,7 @@ services:
       - ./ddns:/updater/data
 
   traefik:
-    image: traefik:v3.1.5
+    image: traefik:v3.3.4
     container_name: traefik
     restart: always
     labels:
