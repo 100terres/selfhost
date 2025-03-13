@@ -57,7 +57,7 @@ services:
 
   # this is temporary
   professional-mastodon-old-domain:
-    image: traefik/whoami:v1.10.4
+    image: traefik/whoami:v1.11.0
     container_name: professional-mastodon-old-domain
     restart: always
     labels:
