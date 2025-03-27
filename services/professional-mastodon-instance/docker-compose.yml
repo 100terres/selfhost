@@ -55,21 +55,6 @@ services:
     volumes:
       - ./data/public/system:/mastodon/public/system
 
-  # this is temporary
-  professional-mastodon-old-domain:
-    image: traefik/whoami:v1.11.0
-    container_name: professional-mastodon-old-domain
-    restart: always
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.middlewares.professional-mastodon-old-domain-redirection.redirectregex.regex=^https?://${ALTERNATE_DOMAINS}(.*)"
-      - "traefik.http.middlewares.professional-mastodon-old-domain-redirection.redirectregex.replacement=https://${WEB_DOMAIN}$${1}"
-      - "traefik.http.middlewares.professional-mastodon-old-domain-redirection.redirectregex.permanent=true"
-      - "traefik.http.routers.professional-mastodon-old-domain.rule=Host(`${ALTERNATE_DOMAINS}`)"
-      - "traefik.http.routers.professional-mastodon-old-domain.entrypoints=websecure"
-      - "traefik.http.routers.professional-mastodon-old-domain.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.professional-mastodon-old-domain.middlewares=professional-mastodon-old-domain-redirection@docker"
-
   professional-mastodon-instance-postgres:
     # How to upgrade to a major version
     # https://github.com/tianon/docker-postgres-upgrade
