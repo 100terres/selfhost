@@ -22,7 +22,7 @@ services:
       - ./data/public/system:/mastodon/public/system
 
   personal-mastodon-instance-streaming:
-    image: ghcr.io/mastodon/mastodon-streaming:v4.3.6
+    image: ghcr.io/mastodon/mastodon-streaming:v4.3.7
     container_name: personal-mastodon-instance-streaming
     restart: always
     env_file: .env
