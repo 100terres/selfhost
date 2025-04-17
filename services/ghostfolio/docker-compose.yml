@@ -10,9 +10,9 @@ services:
     security_opt:
       - no-new-privileges:true
     depends_on:
-      postgres:
+      ghostfolio-postgres:
         condition: service_healthy
-      redis:
+      ghostfolio-redis:
         condition: service_healthy
     healthcheck:
       test: ['CMD-SHELL', 'curl -f http://localhost:3333/api/v1/health']
