@@ -22,6 +22,18 @@ services/core/postgres/*
 services/core/postgres-backup/*
 !services/core/postgres-backup/.keep
 
+# ----------
+# ghostfolio
+# ----------
+
+services/ghostfolio/data/*
+
+services/ghostfolio/postgres/*
+!services/ghostfolio/postgres/.keep
+
+services/ghostfolio/redis/*
+!services/ghostfolio/redis/.keep
+
 # --------------------------
 # personal mastodon instance
 # --------------------------
