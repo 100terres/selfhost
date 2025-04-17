@@ -23,10 +23,10 @@ services:
       - "3333"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.professional-mastodon-instance-web.loadbalancer.server.port=3333"
-      - "traefik.http.routers.professional-mastodon-instance-web.rule=Host(`${DOMAIN_NAME}`)"
-      - "traefik.http.routers.professional-mastodon-instance-web.entrypoints=websecure"
-      - "traefik.http.routers.professional-mastodon-instance-web.tls.certresolver=letsencrypt"
+      - "traefik.http.services.ghostfolio-web.loadbalancer.server.port=3333"
+      - "traefik.http.routers.ghostfolio-web.rule=Host(`${DOMAIN_NAME}`)"
+      - "traefik.http.routers.ghostfolio-web.entrypoints=websecure"
+      - "traefik.http.routers.ghostfolio-web.tls.certresolver=letsencrypt"
 
   ghostfolio-postgres:
     # How to upgrade to a major version
