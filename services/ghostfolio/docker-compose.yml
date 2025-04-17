@@ -61,10 +61,9 @@ services:
     image: redis:7.4.2-alpine
     container_name: ghostfolio-redis
     restart: always
+    user: '999:1000'
     cap_drop:
       - ALL
-    cap_add:
-      - CHOWN
     security_opt:
       - no-new-privileges:true
     healthcheck:
