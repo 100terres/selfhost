@@ -58,7 +58,7 @@ services:
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-password
 
   ghostfolio-redis:
-    image: redis:7.4.2-alpine
+    image: redis:8.2.1-alpine
     container_name: ghostfolio-redis
     restart: always
     user: '999:1000'
