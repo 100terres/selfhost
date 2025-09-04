@@ -1,6 +1,6 @@
 services:
   personal-mastodon-instance-web:
-    image: ghcr.io/mastodon/mastodon:v4.3.7
+    image: ghcr.io/mastodon/mastodon:v4.3.11
     container_name: personal-mastodon-instance-web
     restart: always
     env_file: .env
@@ -22,7 +22,7 @@ services:
       - ./data/public/system:/mastodon/public/system
 
   personal-mastodon-instance-streaming:
-    image: ghcr.io/mastodon/mastodon-streaming:v4.3.7
+    image: ghcr.io/mastodon/mastodon-streaming:v4.3.11
     container_name: personal-mastodon-instance-streaming
     restart: always
     env_file: .env
@@ -42,7 +42,7 @@ services:
       - "traefik.http.routers.personal-mastodon-instance-streaming.tls.certresolver=letsencrypt"
 
   personal-mastodon-instance-sidekiq:
-    image: ghcr.io/mastodon/mastodon:v4.3.7
+    image: ghcr.io/mastodon/mastodon:v4.3.11
     container_name: personal-mastodon-instance-sidekiq
     restart: always
     env_file: .env
