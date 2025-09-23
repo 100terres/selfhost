@@ -1,6 +1,6 @@
 services:
   professional-mastodon-instance-web:
-    image: ghcr.io/mastodon/mastodon:v4.3.11
+    image: ghcr.io/mastodon/mastodon:v4.4.5
     container_name: professional-mastodon-instance-web
     restart: always
     env_file: .env
@@ -42,7 +42,7 @@ services:
       - "traefik.http.routers.professional-mastodon-instance-streaming.tls.certresolver=letsencrypt"
 
   professional-mastodon-instance-sidekiq:
-    image: ghcr.io/mastodon/mastodon:v4.3.11
+    image: ghcr.io/mastodon/mastodon:v4.4.5
     container_name: professional-mastodon-instance-sidekiq
     restart: always
     env_file: .env
