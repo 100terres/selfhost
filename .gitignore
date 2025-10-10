@@ -70,6 +70,12 @@ services/professional-mastodon-instance/redis/*
 services/professional-mastodon-instance/redis-backup/*
 !services/professional-mastodon-instance/redis-backup/.keep
 
+# --------------
+# forgejo-runner
+# --------------
+
+services/forgejo-runner/data
+
 # ---
 # env
 # ---
