@@ -1,6 +1,6 @@
 services:
   ghostfolio-web:
-    image: ghostfolio/ghostfolio:2.195.0
+    image: ghostfolio/ghostfolio:2.207.0
     container_name: ghostfolio-web
     init: true
     restart: always
