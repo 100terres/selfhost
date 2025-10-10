@@ -7,7 +7,7 @@ services:
     restart: "unless-stopped"
 
   forgejo-runner:
-    image: "codeberg.org/forgejo/forgejo:12.0.4"
+    image: "code.forgejo.org/forgejo/runner:11.1.2"
     container_name: "forgejo-runner"
     links:
       - forgejo-runner-docker-in-docker
