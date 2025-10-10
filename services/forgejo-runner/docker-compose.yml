@@ -1,0 +1,26 @@
+services:
+  forgejo-runner-docker-in-docker:
+    image: docker:dind
+    container_name: "forgejo-runner-docker-in-docker"
+    privileged: "true"
+    command: ["dockerd", "-H", "tcp://0.0.0.0:2375", "--tls=false"]
+    restart: "unless-stopped"
+
+  forgejo-runner:
+    image: "code.forgejo.org/forgejo/runner:11.1.2"
+    container_name: "forgejo-runner"
+    links:
+      - forgejo-runner-docker-in-docker
+    depends_on:
+      forgejo-runner-docker-in-docker:
+        condition: service_started
+    environment:
+      DOCKER_HOST: tcp://forgejo-runner-docker-in-docker:2375
+    # User without root privileges, but with access to `./data`.
+    user: 1001:1001
+    volumes:
+      - ./data:/data
+    restart: "unless-stopped"
+
+    # do the registration before running the runner
+    command: '/bin/sh -c "sleep 5; forgejo-runner daemon"'
