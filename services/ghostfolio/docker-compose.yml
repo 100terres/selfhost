@@ -27,6 +27,7 @@ services:
       - "traefik.http.routers.ghostfolio-web.rule=Host(`${DOMAIN_NAME}`)"
       - "traefik.http.routers.ghostfolio-web.entrypoints=websecure"
       - "traefik.http.routers.ghostfolio-web.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.ghostfolio-web.middlewares=basic-security"
 
   ghostfolio-postgres:
     # How to upgrade to a major version

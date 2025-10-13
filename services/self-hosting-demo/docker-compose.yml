@@ -17,6 +17,7 @@ services:
       - "traefik.http.routers.self-hosting-demo.rule=Host(`${DOMAIN_NAME}`)"
       - "traefik.http.routers.self-hosting-demo.entrypoints=websecure"
       - "traefik.http.routers.self-hosting-demo.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.self-hosting-demo.middlewares=basic-security"
 
 networks:
   default:

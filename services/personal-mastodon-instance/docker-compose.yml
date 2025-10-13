@@ -18,6 +18,7 @@ services:
       - "traefik.http.routers.personal-mastodon-instance-web.rule=Host(`${LOCAL_DOMAIN}`)"
       - "traefik.http.routers.personal-mastodon-instance-web.entrypoints=websecure"
       - "traefik.http.routers.personal-mastodon-instance-web.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.personal-mastodon-instance-web.middlewares=basic-security"
     volumes:
       - ./data/public/system:/mastodon/public/system
 
