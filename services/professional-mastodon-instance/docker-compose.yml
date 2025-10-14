@@ -41,6 +41,7 @@ services:
       - "traefik.http.routers.professional-mastodon-instance-streaming.rule=(Host(`${WEB_DOMAIN}`) && PathPrefix(`/api/v1/streaming`))"
       - "traefik.http.routers.professional-mastodon-instance-streaming.entrypoints=websecure"
       - "traefik.http.routers.professional-mastodon-instance-streaming.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.professional-mastodon-instance-streaming.middlewares=basic-security"
 
   professional-mastodon-instance-sidekiq:
     image: ghcr.io/mastodon/mastodon:v4.4.5
