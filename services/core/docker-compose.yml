@@ -5,7 +5,7 @@ services:
     restart: always
     networks:
       - docker-socket-proxy
-    ports:
+    expose:
       - 2375
     environment:
       CONTAINERS: 1
