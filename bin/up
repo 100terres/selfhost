@@ -7,4 +7,5 @@ docker compose --file services/ghostfolio/docker-compose.yml up -d --remove-orph
 docker compose --file services/personal-mastodon-instance/docker-compose.yml up -d --remove-orphans
 docker compose --file services/professional-mastodon-instance/docker-compose.yml up -d --remove-orphans
 docker compose --file services/forgejo-runner/docker-compose.yml up -d --remove-orphans
+docker compose --file services/forgejo/docker-compose.yml up -d --remove-orphans
 docker compose --file services/self-hosting-demo/docker-compose.yml up -d --remove-orphans

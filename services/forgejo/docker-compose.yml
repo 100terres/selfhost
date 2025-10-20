@@ -1,0 +1,17 @@
+services:
+  forgejo:
+    image: "codeberg.org/forgejo/forgejo:13.0.1"
+    container_name: forgejo
+    restart: always
+    env_file: .env
+    expose:
+      - "3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.forgejo.loadbalancer.server.port=3000"
+      - "traefik.http.routers.forgejo.rule=Host(`${DOMAIN_NAME}`)"
+      - "traefik.http.routers.forgejo.entrypoints=websecure"
+      - "traefik.http.routers.forgejo.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.forgejo.middlewares=basic-security"
+    volumes:
+      - ./data/forgejo:/data

@@ -22,6 +22,13 @@ services/core/postgres/*
 services/core/postgres-backup/*
 !services/core/postgres-backup/.keep
 
+# -------
+# forgejo
+# -------
+
+services/forgejo/data/*
+!services/forgejo/data/.keep
+
 # ----------
 # ghostfolio
 # ----------
