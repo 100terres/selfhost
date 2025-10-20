@@ -15,3 +15,8 @@ services:
       - "traefik.http.routers.forgejo.middlewares=basic-security"
     volumes:
       - ./data/forgejo:/data
+
+networks:
+  default:
+    name: intranet
+    external: true
