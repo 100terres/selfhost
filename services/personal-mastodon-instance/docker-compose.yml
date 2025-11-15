@@ -77,7 +77,7 @@ services:
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-password
 
   personal-mastodon-instance-postgres-backup:
-    image: tiredofit/db-backup:3.9.11
+    image: tiredofit/db-backup:4.1.21
     container_name: personal-mastodon-instance-postgres-backup
     restart: always
     volumes:
@@ -108,7 +108,7 @@ services:
       - ./redis/data:/data
 
   personal-mastodon-instance-redis-backup:
-    image: tiredofit/db-backup:3.9.11
+    image: tiredofit/db-backup:4.1.21
     container_name: personal-mastodon-instance-redis-backup
     restart: always
     volumes:
