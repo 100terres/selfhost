@@ -53,7 +53,7 @@ services:
       - professional-mastodon-instance-postgres
       - professional-mastodon-instance-redis
     healthcheck:
-      test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
+      test: ["CMD-SHELL", "ps aux | grep '[s]idekiq\ 8' || false"]
     volumes:
       - ./data/public/system:/mastodon/public/system
 
