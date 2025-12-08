@@ -9,7 +9,9 @@ docker compose --file services/professional-mastodon-instance/docker-compose.yml
 docker compose --file services/forgejo-runner/docker-compose.yml up -d --remove-orphans
 docker compose --file services/self-hosting-demo/docker-compose.yml up -d --remove-orphans
 
-cd services/forgejo
 read -s -p "KeePass Password: " PASSWORD
-FNOX_KEEPASS_PASSWORD=$PASSWORD fnox exec --config services/forgejo/fnox.toml --if-missing error --verbose -- docker compose --file services/forgejo/docker-compose.yml up -d --remove-orphans
+
+cd services/forgejo
+echo "up: forgejo"
+FNOX_KEEPASS_PASSWORD=$PASSWORD fnox exec --if-missing error -- docker compose up -d --remove-orphans
 cd ../..
