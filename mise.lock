@@ -1,0 +1,8 @@
+[[tools.fnox]]
+version = "1.7.0"
+backend = "github:jdx/fnox"
+"platforms.linux-arm64" = { checksum = "sha256:d38305aa3f0b187b169a767eb56af905f55b792b2df6cbf0377efb30d4879731", url = "https://github.com/jdx/fnox/releases/download/v1.7.0/fnox-aarch64-unknown-linux-gnu.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/321587574"}
+"platforms.linux-x64" = { checksum = "sha256:d593b853806212a75db74048d4cb27ac70f6811e591c1e29f496fb8af38475f3", url = "https://github.com/jdx/fnox/releases/download/v1.7.0/fnox-x86_64-unknown-linux-gnu.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/321587581"}
+"platforms.macos-arm64" = { checksum = "sha256:65f954960de7a5cabee7bfe84be328a0baf83ab3d5362b9192be6b4791d4d2f2", url = "https://github.com/jdx/fnox/releases/download/v1.7.0/fnox-aarch64-apple-darwin.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/321587572"}
+"platforms.macos-x64" = { checksum = "sha256:e15167601cc41e6b7ed1af216cb2a3537db2e40cf61ad65150f517065f24d580", url = "https://github.com/jdx/fnox/releases/download/v1.7.0/fnox-x86_64-apple-darwin.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/321587571"}
+"platforms.windows-x64" = { checksum = "sha256:fe3a964d67f4f531afc44e8f0cf72886739c6a79d2113db50a3482ca1d09f0e2", url = "https://github.com/jdx/fnox/releases/download/v1.7.0/fnox-x86_64-pc-windows-msvc.zip", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/321587570"}

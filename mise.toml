@@ -1,0 +1,6 @@
+[settings]
+experimental=true
+lockfile = true
+
+[tools]
+fnox = "1.7.0"

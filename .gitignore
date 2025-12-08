@@ -90,3 +90,4 @@ services/forgejo-runner/data
 .env.*
 !.env.sample
 !.env.*.sample
+*.kdbx

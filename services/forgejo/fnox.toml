@@ -1,0 +1,21 @@
+[providers]
+keepass = { type = "keepass", database = "../../selfhost.kdbx" }
+
+[secrets]
+TZ = { value = "production/forgejo/TZ", default = "UTC", provider = "keepass" }
+DOMAIN_NAME = { value = "production/forgejo/DOMAIN_NAME", default = "example.com", provider = "keepass" }
+USER_UID = { value = "production/forgejo/USER_UID", default = "1000", provider = "keepass" }
+USER_GID = { value = "production/forgejo/USER_GID", default = "1000", provider = "keepass" }
+FORGEJO_cors_ALLOW_DOMAIN = { value = "production/forgejo/FORGEJO_cors_ALLOW_DOMAIN", default = "https://example.com", provider = "keepass" }
+FORGEJO__server__DOMAIN = { value = "production/forgejo/FORGEJO__server__DOMAIN", default = "example.com", provider = "keepass" }
+FORGEJO__server__DISABLE_SSH = { value = "production/forgejo/FORGEJO__server__DISABLE_SSH", default = "true", provider = "keepass" }
+FORGEJO__server__ROOT_URL = { value = "production/forgejo/FORGEJO__server__ROOT_URL", default = "https://example.com", provider = "keepass" }
+FORGEJO__service__DISABLE_REGISTRATION = { value = "production/forgejo/FORGEJO__service__DISABLE_REGISTRATION", default = "true", provider = "keepass" }
+FORGEJO__openid__ENABLE_OPENID_SIGNIN = { value = "production/forgejo/FORGEJO__openid__ENABLE_OPENID_SIGNIN", default = "false", provider = "keepass" }
+FORGEJO__mailer__ENABLED = { value = "production/forgejo/FORGEJO__mailer__ENABLED", default = "true", provider = "keepass" }
+FORGEJO__mailer__FROM = { value = "production/forgejo/FORGEJO__mailer__FROM", default = "Forgejo <forgejo@example.com>", provider = "keepass" }
+FORGEJO__mailer__PROTOCOL = { value = "production/forgejo/FORGEJO__mailer__PROTOCOL", default = "smtp+starttls", provider = "keepass" }
+FORGEJO__mailer__SMTP_ADDR = { value = "production/forgejo/FORGEJO__mailer__SMTP_ADDR", default = "smtp.example.com", provider = "keepass" }
+FORGEJO__mailer__SMTP_PORT = { value = "production/forgejo/FORGEJO__mailer__SMTP_PORT", default = "587", provider = "keepass" }
+FORGEJO__mailer__USER = { value = "production/forgejo/FORGEJO__mailer__USER", default = "forgejo@example.com", provider = "keepass" }
+FORGEJO__mailer__PASSWD = { value = "production/forgejo/FORGEJO__mailer__PASSWD", default = "password", provider = "keepass" }
