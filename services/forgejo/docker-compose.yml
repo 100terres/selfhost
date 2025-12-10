@@ -3,9 +3,16 @@ services:
     image: "codeberg.org/forgejo/forgejo:13.0.3"
     container_name: forgejo
     restart: always
-    env_file: .env
     expose:
       - "3000"
+    environment:
+      - TZ=UTC
+      - USER_UID=1000
+      - USER_GID=1000
+      - FORGEJO__server__DISABLE_SSH=true
+      - FORGEJO__service__DISABLE_REGISTRATION=true
+      - FORGEJO__openid__ENABLE_OPENID_SIGNIN=false
+      - FORGEJO__mailer__ENABLED=true
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.forgejo.loadbalancer.server.port=3000"
