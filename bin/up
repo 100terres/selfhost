@@ -42,7 +42,7 @@ cd ../..
 printf "\ndone: Self Hosting Demo\n"
 
 cd services/forgejo
-printf "\n\Fstart: Forgejo\n"
+printf "\nstart: Forgejo\n"
 FNOX_KEEPASS_PASSWORD=$PASSWORD fnox exec --if-missing error -- docker compose up -d --remove-orphans
 cd ../..
 printf "\ndone: Forgejo\n"
