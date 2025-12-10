@@ -7,42 +7,42 @@ printf "\nThank you!"
 # Core must be first!
 printf "\nstart: Core\n"
 cd services/core
-docker compose up -d --remove-orphans
+docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Core\n"
 
 printf "\nstart: Ghostfolio\n"
 cd services/ghostfolio
-docker compose up -d --remove-orphans
+docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Ghostfolio\n"
 
 printf "\nstart: Personal Mastodon Instance\n"
 cd services/personal-mastodon-instance
-docker compose up -d --remove-orphans
+docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Personal Mastodon Instance\n"
 
 printf "\nstart: Professional Mastodon Instance\n"
 cd services/professional-mastodon-instance
-docker compose up -d --remove-orphans
+docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Professional Mastodon Instance\n"
 
 printf "\nstart: Forgejo Runner\n"
 cd services/forgejo-runner
-docker compose up -d --remove-orphans
+docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Forgejo Runner\n"
 
 printf "\nstart: Self Hosting Demo\n"
 cd services/self-hosting-demo
-docker compose up -d --remove-orphans
+docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Self Hosting Demo\n"
 
 cd services/forgejo
 printf "\nstart: Forgejo\n"
-FNOX_KEEPASS_PASSWORD=$PASSWORD fnox exec --if-missing error -- docker compose up -d --remove-orphans
+FNOX_KEEPASS_PASSWORD=$PASSWORD fnox exec --if-missing error -- docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Forgejo\n"
