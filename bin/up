@@ -2,40 +2,47 @@
 
 read -s -p "Enter KeePass Password: " PASSWORD
 
-printf "\n\n Thank you!"
+printf "\nThank you!"
 
 # Core must be first!
-printf "\n\nCore\n"
+printf "\nstart: Core\n"
 cd services/core
 docker compose up -d --remove-orphans
 cd ../..
+printf "\ndone: Core\n"
 
-printf "\n\nCore\n"
+printf "\nstart: Ghostfolio\n"
 cd services/ghostfolio
 docker compose up -d --remove-orphans
 cd ../..
+printf "\ndone: Ghostfolio\n"
 
-printf "\n\nPersonal Mastodon Instance\n"
+printf "\nstart: Personal Mastodon Instance\n"
 cd services/personal-mastodon-instance
 docker compose up -d --remove-orphans
 cd ../..
+printf "\ndone: Personal Mastodon Instance\n"
 
-printf "\n\nProfessional Mastodon Instance\n"
+printf "\nstart: Professional Mastodon Instance\n"
 cd services/professional-mastodon-instance
 docker compose up -d --remove-orphans
 cd ../..
+printf "\ndone: Professional Mastodon Instance\n"
 
-printf "\n\nForgejo Runner\n"
+printf "\nstart: Forgejo Runner\n"
 cd services/forgejo-runner
 docker compose up -d --remove-orphans
 cd ../..
+printf "\ndone: Forgejo Runner\n"
 
-printf "\n\nSelf Hosting Demo\n"
+printf "\nstart: Self Hosting Demo\n"
 cd services/self-hosting-demo
 docker compose up -d --remove-orphans
 cd ../..
+printf "\ndone: Self Hosting Demo\n"
 
 cd services/forgejo
-printf "\n\Forgejo\n"
+printf "\n\Fstart: Forgejo\n"
 FNOX_KEEPASS_PASSWORD=$PASSWORD fnox exec --if-missing error -- docker compose up -d --remove-orphans
 cd ../..
+printf "\ndone: Forgejo\n"
