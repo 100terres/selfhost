@@ -1,17 +1,41 @@
 #!/usr/bin/env bash
 
-# Always first
-docker compose --file services/core/docker-compose.yml up -d --remove-orphans
+read -s -p "Enter KeePass Password: " PASSWORD
 
-docker compose --file services/ghostfolio/docker-compose.yml up -d --remove-orphans
-docker compose --file services/personal-mastodon-instance/docker-compose.yml up -d --remove-orphans
-docker compose --file services/professional-mastodon-instance/docker-compose.yml up -d --remove-orphans
-docker compose --file services/forgejo-runner/docker-compose.yml up -d --remove-orphans
-docker compose --file services/self-hosting-demo/docker-compose.yml up -d --remove-orphans
+printf "\n\n Thank you!"
 
-read -s -p "KeePass Password: " PASSWORD
+# Core must be first!
+printf "\n\nCore\n"
+cd services/core
+docker compose up -d --remove-orphans
+cd ../..
+
+printf "\n\nCore\n"
+cd services/ghostfolio
+docker compose up -d --remove-orphans
+cd ../..
+
+printf "\n\nPersonal Mastodon Instance\n"
+cd services/personal-mastodon-instance
+docker compose up -d --remove-orphans
+cd ../..
+
+printf "\n\nProfessional Mastodon Instance\n"
+cd services/professional-mastodon-instance
+docker compose up -d --remove-orphans
+cd ../..
+
+printf "\n\nForgejo Runner\n"
+cd services/forgejo-runner
+docker compose up -d --remove-orphans
+cd ../..
+
+printf "\n\nSelf Hosting Demo\n"
+cd services/self-hosting-demo
+docker compose up -d --remove-orphans
+cd ../..
 
 cd services/forgejo
-echo "up: forgejo"
+printf "\n\Forgejo\n"
 FNOX_KEEPASS_PASSWORD=$PASSWORD fnox exec --if-missing error -- docker compose up -d --remove-orphans
 cd ../..
