@@ -1,6 +1,7 @@
 # ----
 # core
 # ----
+
 services/core/ddns/*
 !services/core/ddns/config.sample.json
 
@@ -86,6 +87,7 @@ services/forgejo-runner/data
 # ---
 # env
 # ---
+
 .env
 .env.*
 !.env.sample
