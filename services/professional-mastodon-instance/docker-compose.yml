@@ -99,7 +99,7 @@ services:
       - GZ_RSYNCABLE=TRUE
 
   professional-mastodon-instance-redis:
-    image: redis:7.2.0-alpine
+    image: redis:7.4.7-alpine
     container_name: professional-mastodon-instance-redis
     restart: always
     healthcheck:
