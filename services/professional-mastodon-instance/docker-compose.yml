@@ -1,6 +1,6 @@
 services:
   professional-mastodon-instance-web:
-    image: ghcr.io/mastodon/mastodon:v4.5.3
+    image: ghcr.io/mastodon/mastodon:v4.5.6
     container_name: professional-mastodon-instance-web
     restart: always
     env_file: .env
@@ -23,7 +23,7 @@ services:
       - ./data/public/system:/mastodon/public/system
 
   professional-mastodon-instance-streaming:
-    image: ghcr.io/mastodon/mastodon-streaming:v4.5.3
+    image: ghcr.io/mastodon/mastodon-streaming:v4.5.6
     container_name: professional-mastodon-instance-streaming
     restart: always
     env_file: .env
@@ -44,7 +44,7 @@ services:
       - "traefik.http.routers.professional-mastodon-instance-streaming.middlewares=basic-security"
 
   professional-mastodon-instance-sidekiq:
-    image: ghcr.io/mastodon/mastodon:v4.5.3
+    image: ghcr.io/mastodon/mastodon:v4.5.6
     container_name: professional-mastodon-instance-sidekiq
     restart: always
     env_file: .env
