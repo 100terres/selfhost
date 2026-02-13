@@ -32,7 +32,7 @@ services:
   ghostfolio-postgres:
     # How to upgrade to a major version
     # https://github.com/tianon/docker-postgres-upgrade
-    image: postgres:17.4-alpine
+    image: postgres:17.8-alpine
     container_name: ghostfolio-postgres
     restart: always
     cap_drop:
