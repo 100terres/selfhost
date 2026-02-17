@@ -1,4 +1,17 @@
 services:
+  pangolin-cli:
+    image: docker.io/fosrl/pangolin-cli:0.3.3
+    container_name: pangolin-cli
+    env_file: .env
+    restart: unless-stopped
+    network_mode: host
+    networks:
+      - docker-socket-proxy
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+
   docker-socket-proxy:
     image: tecnativa/docker-socket-proxy:v0.4.2
     container_name: docker-socket-proxy

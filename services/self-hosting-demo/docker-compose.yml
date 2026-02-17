@@ -1,8 +1,4 @@
 services:
-  self-hosting-demo-newt:
-    image: docker.io/fosrl/newt:1.9.0
-    container_name: self-hosting-demo-newt
-    restart: unless-stopped
   self-hosting-demo:
     image: traefik/whoami:v1.11.0
     container_name: self-hosting-demo
