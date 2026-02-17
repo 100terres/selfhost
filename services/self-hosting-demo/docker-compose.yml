@@ -3,3 +3,7 @@ services:
     image: traefik/whoami:v1.11.0
     container_name: self-hosting-demo
     restart: unless-stopped
+networks:
+  default:
+    name: intranet
+    external: true
