@@ -1,25 +1,9 @@
 services:
+  self-hosting-demo-newt:
+    image: docker.io/fosrl/newt:1.9.0
+    container_name: self-hosting-demo-newt
+    restart: unless-stopped
   self-hosting-demo:
     image: traefik/whoami:v1.11.0
     container_name: self-hosting-demo
-    restart: always
-    labels:
-      # Let Traefik knows it could redirect request to this
-      # service
-      - "traefik.enable=true"
-
-      # Define how Traefik should route traffic to this service.
-      # In this case it's with the domain name
-      # `whoami.example.com`. We could as well use a path e.g.
-      # `example.com/whoami`. To achevie this read Traefik's
-      # documentation here:
-      # https://doc.traefik.io/traefik/routing/routers/
-      - "traefik.http.routers.self-hosting-demo.rule=Host(`${DOMAIN_NAME}`)"
-      - "traefik.http.routers.self-hosting-demo.entrypoints=websecure"
-      - "traefik.http.routers.self-hosting-demo.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.self-hosting-demo.middlewares=basic-security"
-
-networks:
-  default:
-    name: intranet
-    external: true
+    restart: unless-stopped
