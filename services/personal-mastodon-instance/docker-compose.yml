@@ -14,16 +14,13 @@ services:
       - default
       - gateway-personal-mastodon-instance-resource
     healthcheck:
-      test: ['CMD-SHELL',"curl -s --noproxy localhost localhost:3000/health | grep -q 'OK' || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "curl -s --noproxy localhost localhost:3000/health | grep -q 'OK' || exit 1",
+        ]
     expose:
       - "3000"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.personal-mastodon-instance-web.loadbalancer.server.port=3000"
-      - "traefik.http.routers.personal-mastodon-instance-web.rule=Host(`${LOCAL_DOMAIN}`)"
-      - "traefik.http.routers.personal-mastodon-instance-web.entrypoints=websecure"
-      - "traefik.http.routers.personal-mastodon-instance-web.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.personal-mastodon-instance-web.middlewares=basic-security"
     volumes:
       - ./data/public/system:/mastodon/public/system
 
@@ -40,16 +37,13 @@ services:
       - default
       - gateway-personal-mastodon-instance-resource
     healthcheck:
-      test: ['CMD-SHELL', "curl -s --noproxy localhost localhost:4000/api/v1/streaming/health | grep -q 'OK' || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "curl -s --noproxy localhost localhost:4000/api/v1/streaming/health | grep -q 'OK' || exit 1",
+        ]
     expose:
       - "4000"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.personal-mastodon-instance-streaming.loadbalancer.server.port=4000"
-      - "traefik.http.routers.personal-mastodon-instance-streaming.rule=(Host(`${LOCAL_DOMAIN}`) && PathPrefix(`/api/v1/streaming`))"
-      - "traefik.http.routers.personal-mastodon-instance-streaming.entrypoints=websecure"
-      - "traefik.http.routers.personal-mastodon-instance-streaming.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.personal-mastodon-instance-streaming.middlewares=basic-security"
 
   personal-mastodon-instance-sidekiq:
     image: ghcr.io/mastodon/mastodon:v4.5.6
