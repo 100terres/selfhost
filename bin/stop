@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-docker compose --file services/ghostfolio/docker-compose.yml stop
 docker compose --file services/personal-mastodon-instance/docker-compose.yml stop
 docker compose --file services/professional-mastodon-instance/docker-compose.yml stop
 docker compose --file services/forgejo/docker-compose.yml stop

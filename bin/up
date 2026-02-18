@@ -11,12 +11,6 @@ docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Core\n"
 
-printf "\nstart: Ghostfolio\n"
-cd services/ghostfolio
-docker compose up --detach --wait --remove-orphans
-cd ../..
-printf "\ndone: Ghostfolio\n"
-
 printf "\nstart: Personal Mastodon Instance\n"
 cd services/personal-mastodon-instance
 docker compose up --detach --wait --remove-orphans
