@@ -60,7 +60,7 @@ services:
   professional-mastodon-instance-postgres:
     # How to upgrade to a major version
     # https://github.com/tianon/docker-postgres-upgrade
-    image: postgres:15.4-alpine
+    image: postgres:18.2-alpine
     container_name: professional-mastodon-instance-postgres
     restart: always
     healthcheck:
