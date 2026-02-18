@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json
+
 services:
   personal-mastodon-instance-web:
     image: ghcr.io/mastodon/mastodon:v4.5.6
@@ -8,6 +10,9 @@ services:
     depends_on:
       - personal-mastodon-instance-postgres
       - personal-mastodon-instance-redis
+    networks:
+      - default
+      - gateway-personal-mastodon-instance-resource
     healthcheck:
       test: ['CMD-SHELL',"curl -s --noproxy localhost localhost:3000/health | grep -q 'OK' || exit 1"]
     expose:
@@ -31,6 +36,9 @@ services:
     depends_on:
       - personal-mastodon-instance-postgres
       - personal-mastodon-instance-redis
+    networks:
+      - default
+      - gateway-personal-mastodon-instance-resource
     healthcheck:
       test: ['CMD-SHELL', "curl -s --noproxy localhost localhost:4000/api/v1/streaming/health | grep -q 'OK' || exit 1"]
     expose:
@@ -127,6 +135,9 @@ services:
 networks:
   default:
     name: intranet
+    external: true
+  gateway-personal-mastodon-instance-resource:
+    name: gateway-personal-mastodon-instance-resource
     external: true
 
 secrets:

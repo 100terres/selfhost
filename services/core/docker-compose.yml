@@ -8,6 +8,7 @@ services:
     env_file: .env
     networks:
       - gateway-forgejo-resource
+      - gateway-personal-mastodon-instance-resource
       - gateway-self-hosting-demo-resource
 
   docker-socket-proxy:
@@ -95,6 +96,8 @@ networks:
     name: docker-socket-proxy
   gateway-forgejo-resource:
     name: gateway-forgejo-resource
+  gateway-personal-mastodon-instance-resource:
+    name: gateway-personal-mastodon-instance-resource
   gateway-self-hosting-demo-resource:
     name: gateway-self-hosting-demo-resource
 
