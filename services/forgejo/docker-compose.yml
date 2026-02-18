@@ -1,8 +1,12 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json
+
 services:
   forgejo:
     image: "codeberg.org/forgejo/forgejo:13.0.3"
     container_name: forgejo
-    restart: always
+    restart: unless-stopped
+    networks:
+      - gateway-forgejo-resource
     expose:
       - "3000"
     environment:
@@ -13,17 +17,10 @@ services:
       - FORGEJO__service__DISABLE_REGISTRATION=true
       - FORGEJO__openid__ENABLE_OPENID_SIGNIN=false
       - FORGEJO__mailer__ENABLED=true
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.forgejo.loadbalancer.server.port=3000"
-      - "traefik.http.routers.forgejo.rule=Host(`${DOMAIN_NAME}`)"
-      - "traefik.http.routers.forgejo.entrypoints=websecure"
-      - "traefik.http.routers.forgejo.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.forgejo.middlewares=basic-security"
     volumes:
       - ./data/forgejo:/data
 
 networks:
-  default:
-    name: intranet
+  gateway-forgejo-resource:
+    name: gateway-forgejo-resource
     external: true
