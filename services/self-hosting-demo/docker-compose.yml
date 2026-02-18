@@ -1,9 +1,14 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json
+
 services:
   self-hosting-demo:
     image: traefik/whoami:v1.11.0
     container_name: self-hosting-demo
     restart: unless-stopped
+    networks:
+      - gateway-self-hosting-demo-resource
+
 networks:
-  default:
-    name: intranet
+  gateway-self-hosting-demo-resource:
+    name: gateway-self-hosting-demo-resource
     external: true

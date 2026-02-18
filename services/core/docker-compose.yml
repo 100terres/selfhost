@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json
+
 services:
   newt:
     image: fosrl/newt:1.9.0
@@ -5,7 +7,7 @@ services:
     restart: unless-stopped
     env_file: .env
     networks:
-      - default
+      - gateway-self-hosting-demo-resource
 
   docker-socket-proxy:
     image: tecnativa/docker-socket-proxy:v0.4.2
@@ -90,6 +92,8 @@ networks:
     name: intranet
   docker-socket-proxy:
     name: docker-socket-proxy
+  gateway-self-hosting-demo-resource:
+    name: gateway-self-hosting-demo-resource
 
 secrets:
   pgadmin-password:
