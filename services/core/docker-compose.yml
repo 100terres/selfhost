@@ -64,7 +64,6 @@ services:
     networks:
       - default
       - docker-socket-proxy
-      - gateway-personal-mastodon-instance-resource 
     depends_on:
       - docker-socket-proxy
     command:
