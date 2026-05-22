@@ -2,7 +2,7 @@
 
 services:
   personal-mastodon-instance-web:
-    image: ghcr.io/mastodon/mastodon:v4.5.6
+    image: ghcr.io/mastodon/mastodon:v4.5.10
     container_name: personal-mastodon-instance-web
     restart: always
     env_file: .env
@@ -46,7 +46,7 @@ services:
       - "4000"
 
   personal-mastodon-instance-sidekiq:
-    image: ghcr.io/mastodon/mastodon:v4.5.6
+    image: ghcr.io/mastodon/mastodon:v4.5.10
     container_name: personal-mastodon-instance-sidekiq
     restart: always
     env_file: .env
