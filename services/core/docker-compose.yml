@@ -2,7 +2,7 @@
 
 services:
   newt:
-    image: fosrl/newt:1.9.0
+    image: fosrl/newt:1.12.5
     container_name: newt
     restart: unless-stopped
     env_file: .env
@@ -36,7 +36,7 @@ services:
       - ./ddns:/updater/data
 
   traefik:
-    image: traefik:v3.6.8
+    image: traefik:v3.7.1
     container_name: traefik
     restart: always
     labels:
