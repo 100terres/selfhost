@@ -94,15 +94,11 @@ networks:
     name: intranet
   docker-socket-proxy:
     name: docker-socket-proxy
+  gateway-dagu-resource:
+    name: gateway-dagu-resource
   gateway-forgejo-resource:
     name: gateway-forgejo-resource
   gateway-personal-mastodon-instance-resource:
     name: gateway-personal-mastodon-instance-resource
   gateway-self-hosting-demo-resource:
     name: gateway-self-hosting-demo-resource
-
-secrets:
-  pgadmin-password:
-    file: ./pgadmin/secrets/pgadmin-password.txt
-  postgres-password:
-    file: ./postgres/secrets/postgres-password.txt
