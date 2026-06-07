@@ -2,7 +2,7 @@
 
 services:
   dagu:
-    image: ghcr.io/dagucloud/dagu:2.7.7
+    image: ghcr.io/dagucloud/dagu:2.7.11
     container_name: dagu
     restart: always
     networks:
@@ -12,7 +12,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          'curl -s --noproxy localhost localhost:8080/api/v1/health | grep -q ''"healthy"'' || exit 1',
+          'exec 3<>/dev/tcp/localhost/8080 && printf "GET /api/v1/health HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n" >&3 && RESPONSE=$(cat <&3; exec 3>&-) && echo "--- LOGS ---" && echo "$RESPONSE" && if echo "$RESPONSE" | grep -q "healthy"; then echo "PASS"; exit 0; else echo "FAIL"; exit 1; fi || { echo "CONN_ERR"; exit 1; }',
         ]
     links:
       - dagu-docker-in-docker
