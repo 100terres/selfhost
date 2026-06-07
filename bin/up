@@ -11,12 +11,6 @@ docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Core\n"
 
-printf "\nstart: Dagu\n"
-cd services/dagu
-docker compose up --detach --wait --remove-orphans
-cd ../..
-printf "\ndone: Dagu\n"
-
 printf "\nstart: Personal Mastodon Instance\n"
 cd services/personal-mastodon-instance
 docker compose up --detach --wait --remove-orphans
@@ -46,3 +40,9 @@ printf "\nstart: Forgejo\n"
 FNOX_KEEPASS_PASSWORD=$PASSWORD fnox exec --if-missing error -- docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Forgejo\n"
+
+printf "\nstart: Dagu\n"
+cd services/dagu
+docker compose up --detach --wait --remove-orphans
+cd ../..
+printf "\ndone: Dagu\n"
