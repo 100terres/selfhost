@@ -8,20 +8,12 @@ services/core/ddns/*
 services/core/letsencrypt/*
 !services/core/letsencrypt/.keep
 
-services/core/redis/*
-!services/core/redis/.keep
+# ----
+# dagu
+# ----
 
-services/core/redis-backup/*
-!services/core/redis-backup/.keep
-
-services/core/pgadmin/*
-!services/core/pgadmin/.keep
-
-services/core/postgres/*
-!services/core/postgres/.keep
-
-services/core/postgres-backup/*
-!services/core/postgres-backup/.keep
+services/dagu/dags/*
+!services/dagu/dags/.keep
 
 # -------
 # forgejo
