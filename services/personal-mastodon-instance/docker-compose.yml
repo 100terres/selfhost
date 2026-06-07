@@ -2,9 +2,9 @@
 
 services:
   personal-mastodon-instance-web:
-    image: ghcr.io/mastodon/mastodon:v4.5.6
+    image: ghcr.io/mastodon/mastodon:v4.5.11
     container_name: personal-mastodon-instance-web
-    restart: always
+    restart: unless-stopped
     env_file: .env
     command: bundle exec puma -C config/puma.rb
     depends_on:
@@ -25,9 +25,9 @@ services:
       - ./data/public/system:/mastodon/public/system
 
   personal-mastodon-instance-streaming:
-    image: ghcr.io/mastodon/mastodon-streaming:v4.5.6
+    image: ghcr.io/mastodon/mastodon-streaming:v4.5.11
     container_name: personal-mastodon-instance-streaming
-    restart: always
+    restart: unless-stopped
     env_file: .env
     command: node ./streaming/index.js
     depends_on:
@@ -46,9 +46,9 @@ services:
       - "4000"
 
   personal-mastodon-instance-sidekiq:
-    image: ghcr.io/mastodon/mastodon:v4.5.6
+    image: ghcr.io/mastodon/mastodon:v4.5.11
     container_name: personal-mastodon-instance-sidekiq
-    restart: always
+    restart: unless-stopped
     env_file: .env
     command: bundle exec sidekiq
     depends_on:
@@ -64,7 +64,7 @@ services:
     # https://github.com/tianon/docker-postgres-upgrade
     image: postgres:15.4-alpine
     container_name: personal-mastodon-instance-postgres
-    restart: always
+    restart: unless-stopped
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
     volumes:
@@ -81,7 +81,7 @@ services:
   personal-mastodon-instance-postgres-backup:
     image: tiredofit/db-backup:3.9.11
     container_name: personal-mastodon-instance-postgres-backup
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./postgres-backup/data:/backup
     secrets:
@@ -103,7 +103,7 @@ services:
   personal-mastodon-instance-redis:
     image: redis:7.2.0-alpine
     container_name: personal-mastodon-instance-redis
-    restart: always
+    restart: unless-stopped
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
     volumes:
@@ -112,7 +112,7 @@ services:
   personal-mastodon-instance-redis-backup:
     image: tiredofit/db-backup:3.9.11
     container_name: personal-mastodon-instance-redis-backup
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./redis-backup/data:/backup
     environment:
