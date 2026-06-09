@@ -37,7 +37,15 @@ services:
     container_name: "dagu-docker-in-docker"
     restart: "unless-stopped"
     privileged: "true"
-    command: ["dockerd", "-H", "tcp://0.0.0.0:2375", "--tls=false"]
+    command:
+      [
+        "dockerd",
+        "-H",
+        "tcp://0.0.0.0:2375",
+        "--tls=0",
+        "--insecure-registry",
+        "core-registry",
+      ]
     networks:
       - core-registry
 
