@@ -45,6 +45,9 @@ networks:
   default:
     name: intranet
     external: true
+  core-registry:
+    name: core-registry
+    external: true
   gateway-dagu-resource:
     name: gateway-dagu-resource
     external: true
