@@ -90,9 +90,23 @@ services:
     volumes:
       - ./letsencrypt:/letsencrypt
 
+  core-registry:
+    image: registry:3.1.1
+    container_name: core-registry
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    volumes:
+      - core-registry:/var/lib/registry
+
+volumes:
+  core-registry:
+
 networks:
   default:
     name: intranet
+  core-registry:
+    name: core-registry
   docker-socket-proxy:
     name: docker-socket-proxy
   gateway-dagu-resource:

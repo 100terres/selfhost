@@ -7,6 +7,7 @@ services:
     restart: always
     networks:
       - default
+      - core-registry
       - gateway-dagu-resource
     healthcheck:
       test:
@@ -34,9 +35,11 @@ services:
   dagu-docker-in-docker:
     image: docker:dind
     container_name: "dagu-docker-in-docker"
+    restart: "unless-stopped"
     privileged: "true"
     command: ["dockerd", "-H", "tcp://0.0.0.0:2375", "--tls=false"]
-    restart: "unless-stopped"
+    networks:
+      - core-registry
 
 networks:
   default:
