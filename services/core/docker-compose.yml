@@ -94,7 +94,7 @@ services:
     image: registry:3.1.1
     container_name: core-registry
     networks:
-      - docker-socket-proxy
+      - core-registry
     ports:
       - "5000:5000"
     restart: unless-stopped
