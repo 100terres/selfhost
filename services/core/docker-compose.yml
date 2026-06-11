@@ -96,10 +96,10 @@ services:
     container_name: core.registry
     networks:
       - core-registry
-    environment:
-      REGISTRY_HTTP_ADDR: 0.0.0.0:80
+    ports:
+      - "5000:5000"
     expose:
-      - "80"
+      - 5000
     restart: unless-stopped
     volumes:
       - core-registry:/var/lib/registry

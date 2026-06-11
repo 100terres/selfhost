@@ -44,7 +44,7 @@ services:
         "tcp://0.0.0.0:2375",
         "--tls=0",
         "--insecure-registry",
-        "core.registry",
+        "core.registry:5000",
       ]
     networks:
       - core-registry
