@@ -90,6 +90,37 @@ services:
     volumes:
       - ./letsencrypt:/letsencrypt
 
+  wud:
+    image: getwud/wud:8
+    container_name: wud
+    volumes:
+      - wud:/store
+    healthcheck:
+      test: curl --fail http://localhost:3000/health || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - core-registry
+      - docker-socket-proxy
+    depends_on:
+      - core.registry
+      - docker-socket-proxy
+    environment:
+      - WUD_REGISTRY_CORE_REGISTRY_URL=http://core.registry:5000
+
+      - WUD_WATCHER_DEFAULT_HOST=tcp://docker-socket-proxy:2375
+      - WUD_WATCHER_DEFAUL_WATCHBYDEFAULT=true
+
+      - WUD_WATCHER_FAST_HOST=tcp://docker-socket-proxy:2375
+      - WUD_WATCHER_FAST_CRON="*/5 * * * *"
+      - WUD_WATCHER_FAST_WATCHBYDEFAULT=false
+    labels:
+      - wud.tag.include=^\d+$$
+      - wud.watch.digest=true
+      - wud.link.template=https://github.com/getwud/wud/releases/tag/$${major}.$${minor}.$${patch}
+
   # using dot to make it look like a domain name
   core.registry:
     image: registry:3.1.1
@@ -106,6 +137,7 @@ services:
 
 volumes:
   core-registry:
+  wud:
 
 networks:
   default:
