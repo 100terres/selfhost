@@ -112,6 +112,9 @@ services:
     environment:
       - WUD_REGISTRY_CUSTOM_CORE_URL=http://core.registry:5000
 
+      - WUD_TRIGGER_DOCKER_PULL_AND_RESTART_ENABLED=true
+      - WUD_TRIGGER_DOCKER_PULL_AND_RESTART_PRUNE=true
+
       - WUD_WATCHER_LOCAL_HOST=docker-socket-proxy
       - WUD_WATCHER_LOCAL_PORT=2375
       - WUD_WATCHER_LOCAL_WATCHBYDEFAULT=false

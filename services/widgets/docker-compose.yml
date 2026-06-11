@@ -10,10 +10,12 @@ services:
     networks:
       - gateway-widgets-resource
     labels:
+      - wud.watch=true
       - wud.registry=core
       - wud.watcher.fast.watch=true
       - wud.tag.include=latest
       - wud.watch.digest=true
+      - wud.trigger.include=pull_and_restart
 networks:
   gateway-widgets-resource:
     name: gateway-widgets-resource
