@@ -110,7 +110,7 @@ services:
       - core.registry
       - docker-socket-proxy
     environment:
-      - WUD_REGISTRY_CUSTOM_CORE_REGISTRY_URL=http://core.registry:5000
+      - WUD_REGISTRY_CUSTOM_CORE_URL=http://core.registry:5000
 
       - WUD_WATCHER_LOCAL_HOST=docker-socket-proxy
       - WUD_WATCHER_LOCAL_PORT=2375

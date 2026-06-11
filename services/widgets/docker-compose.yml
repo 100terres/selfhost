@@ -10,6 +10,7 @@ services:
     networks:
       - gateway-widgets-resource
     labels:
+      - wud.registry=core
       - wud.watcher.local.watch=true
       - wud.watcher.fast.watch=true
       - wud.tag.include=latest
