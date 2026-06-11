@@ -21,7 +21,8 @@ services:
     expose:
       - 2375
     environment:
-      CONTAINERS: 1
+      - CONTAINERS=1
+      - IMAGES=1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -108,13 +109,15 @@ services:
       - core.registry
       - docker-socket-proxy
     environment:
-      - WUD_REGISTRY_CORE_REGISTRY_URL=http://core.registry:5000
+      - WUD_REGISTRY_CUSTOM_CORE_REGISTRY_URL=http://core.registry:5000
 
-      - WUD_WATCHER_DEFAULT_HOST=tcp://docker-socket-proxy:2375
-      - WUD_WATCHER_DEFAUL_WATCHBYDEFAULT=true
+      - WUD_WATCHER_LOCAL_HOST=docker-socket-proxy
+      - WUD_WATCHER_LOCAL_PORT=2375
+      - WUD_WATCHER_LOCAL_WATCHBYDEFAULT=true
 
-      - WUD_WATCHER_FAST_HOST=tcp://docker-socket-proxy:2375
-      - WUD_WATCHER_FAST_CRON="*/5 * * * *"
+      - WUD_WATCHER_FAST_HOST=docker-socket-proxy
+      - WUD_WATCHER_FAST_PORT=2375
+      - WUD_WATCHER_FAST_CRON=*/5 * * * *
       - WUD_WATCHER_FAST_WATCHBYDEFAULT=false
     labels:
       - wud.tag.include=^\d+$$
