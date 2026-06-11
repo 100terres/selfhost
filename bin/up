@@ -23,6 +23,12 @@ docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Professional Mastodon Instance\n"
 
+printf "\nstart: Widgets\n"
+cd services/widgets
+docker compose up --detach --wait --remove-orphans
+cd ../..
+printf "\ndone: Widgets\n"
+
 printf "\nstart: Forgejo Runner\n"
 cd services/forgejo-runner
 docker compose up --detach --wait --remove-orphans

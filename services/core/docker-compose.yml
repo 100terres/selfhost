@@ -11,6 +11,7 @@ services:
       - gateway-forgejo-resource
       - gateway-personal-mastodon-instance-resource
       - gateway-self-hosting-demo-resource
+      - gateway-widgets-resource
 
   docker-socket-proxy:
     image: tecnativa/docker-socket-proxy:v0.4.2
@@ -157,3 +158,5 @@ networks:
     name: gateway-personal-mastodon-instance-resource
   gateway-self-hosting-demo-resource:
     name: gateway-self-hosting-demo-resource
+  gateway-widgets-resource:
+    name: gateway-widgets-resource
