@@ -1,0 +1,26 @@
+description: Build Widgets
+
+type: chain
+retry_policy:
+  limit: 0
+
+schedule: "0/15 * * * *"
+
+container:
+  image: alpine:latest
+  user: root
+  keep_container: true
+  shell: ["/bin/sh", "-o", "errexit", "-o", "xtrace", "-o", "pipefail", "-c"]
+  network: host
+  env:
+    - DOCKER_HOST=tcp://dagu-docker-in-docker:2375
+
+steps:
+  - id: prepare
+    run: apk update && apk add --no-cache curl git ca-certificates docker-cli
+  - id: clone
+    run: git clone https://codeberg.org/100terres/widgets.git /widgets
+  - id: build
+    run: cd /widgets && docker build -t core.registry:5000/100terres/widgets:latest .
+  - id: push
+    run: cd /widgets && docker push core.registry:5000/100terres/widgets:latest
