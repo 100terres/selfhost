@@ -2,7 +2,7 @@
 
 services:
   widgets-proxy:
-    image: nginx:alpine:latest
+    image: nginx:alpine
     container_name: widgets-proxy
     restart: unless-stopped
     expose:
