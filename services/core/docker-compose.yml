@@ -23,7 +23,12 @@ services:
       - 2375
     environment:
       - CONTAINERS=1
+      - POST=0
+      # required for wud
       - IMAGES=1
+      - ALLOW_START=1
+      - ALLOW_STOP=1
+      - ALLOW_RESTARTS=1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -103,6 +108,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
+    ports:
+      - 5001:3000
     networks:
       - core-registry
       - docker-socket-proxy
@@ -112,8 +119,8 @@ services:
     environment:
       - WUD_REGISTRY_CUSTOM_CORE_URL=http://core.registry:5000
 
-      - WUD_TRIGGER_DOCKER_PULL_AND_RESTART_ENABLED=true
-      - WUD_TRIGGER_DOCKER_PULL_AND_RESTART_PRUNE=true
+      - WUD_TRIGGER_DOCKER_UPDATE_AUTO=true
+      - WUD_TRIGGER_DOCKER_UPDATE_PRUNE=true
 
       - WUD_WATCHER_LOCAL_HOST=docker-socket-proxy
       - WUD_WATCHER_LOCAL_PORT=2375
