@@ -1,21 +1,42 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json
 
 services:
-  widgets-server:
-    image: core.registry:5000/100terres/widgets:latest
-    container_name: widgets-server
+  widgets-proxy:
+    image: nginx:alpine:latest
+    container_name: widgets-proxy
     restart: unless-stopped
     expose:
       - 80
+    volumes:
+      - ./nginx:/etc/nginx
     networks:
       - gateway-widgets-resource
-    labels:
-      - "wud.watch=true"
-      - "wud.registry=core"
-      - "wud.watcher.fast.watch=true"
-      - "wud.tag.include=latest"
-      - "wud.watch.digest=true"
-      - "wud.trigger.include=docker.update"
+  widgets-server-a:
+    image: core.registry:5000/100terres/widgets:latest
+    container_name: widgets-server-a
+    restart: unless-stopped
+    expose:
+      - 80
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    environment:
+      - SERVER_HEALTH=true
+  widgets-server-b:
+    image: core.registry:5000/100terres/widgets:latest
+    container_name: widgets-server-b
+    restart: unless-stopped
+    expose:
+      - 80
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    environment:
+      - SERVER_HEALTH=true
 networks:
   gateway-widgets-resource:
     name: gateway-widgets-resource

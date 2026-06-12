@@ -1,0 +1,2 @@
+server  widgets-server-a:80;
+server  widgets-server-b:80;
