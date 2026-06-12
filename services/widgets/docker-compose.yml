@@ -10,6 +10,7 @@ services:
     volumes:
       - ./nginx:/etc/nginx
     networks:
+      - widgets-default
       - gateway-widgets-resource
   widgets-server-a:
     image: core.registry:5000/100terres/widgets:latest
@@ -22,6 +23,8 @@ services:
       interval: 5s
       timeout: 3s
       retries: 3
+    networks:
+      - widgets-default
     environment:
       - SERVER_HEALTH=true
   widgets-server-b:
@@ -35,9 +38,13 @@ services:
       interval: 5s
       timeout: 3s
       retries: 3
+    networks:
+      - widgets-default
     environment:
       - SERVER_HEALTH=true
 networks:
+  widgets-default:
+    name: widgets-default
   gateway-widgets-resource:
     name: gateway-widgets-resource
     external: true

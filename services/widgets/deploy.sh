@@ -21,8 +21,8 @@ for SERVICE in "${SERVICES[@]}"; do
 
         # Use the Image ID to find its corresponding Local Repo Digest
         # (This avoids relying on the mutable tag name)
-        LOCAL_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' "$RUNNING_IMAGE_ID" 2>/dev/null | cut -d'@' -f2 | cut -d':' -f2)
-        echo "Local Digest:     $LOCAL_DIGEST"
+        # LOCAL_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' "$RUNNING_IMAGE_ID" 2>/dev/null | cut -d'@' -f2 | cut -d':' -f2)
+        # echo "Local Digest:     $LOCAL_DIGEST"
     fi
 
     # Get service image tag
@@ -33,7 +33,7 @@ for SERVICE in "${SERVICES[@]}"; do
     echo "Remote Digest:    $REMOTE_DIGEST"
 
     # 6. Compare the active running digest with the registry digest
-    if [ -n "$CONTAINER_ID" ] && [ "$LOCAL_DIGEST" == "$REMOTE_DIGEST" ]; then
+    if [ -n "$CONTAINER_ID" ] && [ "$RUNNING_IMAGE_ID" == "$REMOTE_DIGEST" ]; then
         echo "Active container for $SERVICE matches the registry. Skipping deployment."
         continue
     fi
@@ -41,7 +41,7 @@ for SERVICE in "${SERVICES[@]}"; do
     echo "Rolling out update for $SERVICE"
 
     # Stop serving service
-    sed -i "s/server $SERVICE/# server $SERVICE/" active_service.conf
+    sed -i "s/server $SERVICE/# server $SERVICE/" ./nginx/active_service.conf
     docker compose exec $PROXY_SERVICE nginx -s reload
 
     # Update service
@@ -64,7 +64,7 @@ for SERVICE in "${SERVICES[@]}"; do
     done
 
     # Re-enable the service in Nginx using sed
-    sed -i "s/# server $SERVICE/server $SERVICE/" active_service.conf
+    sed -i "s/# server $SERVICE/server $SERVICE/" ./nginx/active_service.conf
     docker compose exec $PROXY_SERVICE nginx -s reload
 
     echo "$SERVICE update complete!"
