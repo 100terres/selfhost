@@ -52,3 +52,9 @@ cd services/dagu
 docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Dagu\n"
+
+printf "\nstart: Widgets\n"
+cd services/widgets
+docker compose up --detach --wait --remove-orphans
+cd ../..
+printf "\ndone: Widgets\n"
