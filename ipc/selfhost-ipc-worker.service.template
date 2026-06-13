@@ -1,5 +1,5 @@
 [Unit]
-Description=Lightweight IPC Socat Worker Daemon
+Description=Selfhost IPC Worker Daemon
 After=network.target
 
 [Service]

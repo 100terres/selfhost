@@ -65,6 +65,12 @@ services/professional-mastodon-instance/redis-backup/*
 
 services/forgejo-runner/data
 
+# -------
+# Widgets
+# -------
+
+services/widgets/nginx/active_service.conf
+
 # ---
 # env
 # ---

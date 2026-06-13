@@ -13,10 +13,12 @@ if [ "$SIGNAL" = "DEPLOY_WIDGETS" ]; then
   flock 200
 
   echo "[Selfhost IPC Handler] Executing DEPLOY_WIDGETS..." >&2
-
+  ORIGINAL_DIR="$(pwd)"
   DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-  bash "$DIR/../services/widgets/deploy.sh" >&2
+  cd "$DIR/../services/widgets"
+  bash "./deploy.sh" >&2
   DEPLOY_WIDGETS_EXIT_CODE=$?
+  cd "$ORIGINAL_DIR"
 
   echo "[Selfhost IPC Handler] DEPLOY_WIDGETS done. exit code: $DEPLOY_WIDGETS_EXIT_CODE" >&2
 
