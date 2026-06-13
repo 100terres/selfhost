@@ -1,0 +1,22 @@
+description: Docker Prune
+
+type: chain
+retry_policy:
+  limit: 0
+
+schedule: "5 * * * *"
+
+container:
+  image: alpine:latest
+  user: root
+  keep_container: true
+  shell: ["/bin/sh", "-o", "errexit", "-o", "xtrace", "-o", "pipefail", "-c"]
+  network: host
+  env:
+    - DOCKER_HOST=tcp://dagu-docker-in-docker:2375
+
+steps:
+  - id: prepare
+    run: apk update && apk add --no-cache docker-cli
+  - id: docker_prune
+    run: docker system prune -a --volumes -f
