@@ -12,15 +12,20 @@ container:
   keep_container: true
   shell: ["/bin/sh", "-o", "errexit", "-o", "xtrace", "-o", "pipefail", "-c"]
   network: host
+  volumes:
+    - /var/lib/selfhost-ipc-worker:/var/lib/selfhost-ipc-worker
   env:
     - DOCKER_HOST=tcp://dagu-docker-in-docker:2375
 
 steps:
   - id: prepare
-    run: apk update && apk add --no-cache curl git ca-certificates docker-cli
+    run: apk update && apk add --no-cache curl git ca-certificates docker-cli socat
   - id: clone
     run: git clone https://codeberg.org/100terres/widgets.git /widgets
   - id: build
-    run: cd /widgets && docker build -t core.registry:5000/100terres/widgets:latest .
+    run: cd /widgets && docker build --pull -t core.registry:5000/100terres/widgets:latest .
   - id: push
     run: cd /widgets && docker push core.registry:5000/100terres/widgets:latest
+  - id: deploy
+    run: |
+      RESPONSE=$(echo "DEPLOY_WIDGETS" | socat -t 300 - UNIX-CONNECT:"/var/lib/selfhost-ipc-worker/selfhost_ipc_worker.sock") && [ "$RESPONSE" = "STATUS:SUCCESS" ] && echo "Success: Task completed cleanly." || { echo "Error: Task failed or daemon is down. Response: '$RESPONSE'"; exit 1; }
