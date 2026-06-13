@@ -37,6 +37,8 @@ services:
     container_name: "dagu-docker-in-docker"
     restart: "unless-stopped"
     privileged: "true"
+    volumes:
+      - /var/lib/selfhost-ipc-worker:/var/lib/selfhost-ipc-worker
     command:
       [
         "dockerd",

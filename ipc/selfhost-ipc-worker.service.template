@@ -1,0 +1,16 @@
+[Unit]
+Description=Lightweight IPC Socat Worker Daemon
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory={{WORKING_DIR}}
+ExecStart={{WORKING_DIR}}/worker.sh
+User={{USER}}
+Restart=always
+RestartSec=1
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
