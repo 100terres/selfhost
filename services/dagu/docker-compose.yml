@@ -50,6 +50,7 @@ services:
       ]
     networks:
       - core-registry
+      - forgejo
 
 networks:
   default:
@@ -57,6 +58,9 @@ networks:
     external: true
   core-registry:
     name: core-registry
+    external: true
+  forgejo:
+    name: forgejo
     external: true
   gateway-dagu-resource:
     name: gateway-dagu-resource

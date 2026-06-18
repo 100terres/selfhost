@@ -6,6 +6,7 @@ services:
     container_name: forgejo
     restart: unless-stopped
     networks:
+      - forgejo
       - gateway-forgejo-resource
     expose:
       - "3000"
@@ -21,6 +22,8 @@ services:
       - ./data/forgejo:/data
 
 networks:
+  forgejo:
+    name: forgejo
   gateway-forgejo-resource:
     name: gateway-forgejo-resource
     external: true
