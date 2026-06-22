@@ -9,6 +9,7 @@ services:
     networks:
       - gateway-dagu-resource
       - gateway-forgejo-resource
+      - gateway-openpgpkey-100terres-com-resource
       - gateway-personal-mastodon-instance-resource
       - gateway-self-hosting-demo-resource
       - gateway-widgets-resource
