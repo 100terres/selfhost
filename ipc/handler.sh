@@ -27,7 +27,28 @@ if [ "$SIGNAL" = "DEPLOY_WIDGETS" ]; then
   else
     echo "STATUS:FAILED"
   fi
+elif [ "$SIGNAL" = "DEPLOY_OPENPGPKEY_100TERRES_COM" ]; then
+  echo "[Selfhost IPC Handler] DEPLOY_OPENPGPKEY_100TERRES_COM received..." >&2
+
+  exec 200>"$LOCK_FILE"
+  flock 200
+
+  echo "[Selfhost IPC Handler] Executing DEPLOY_OPENPGPKEY_100TERRES_COM..." >&2
+  ORIGINAL_DIR="$(pwd)"
+  DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  cd "$DIR/../services/openpgpkey-100terres-com"
+  bash "./deploy.sh" >&2
+  DEPLOY_OPENPGPKEY_100TERRES_COM_EXIT_CODE=$?
+  cd "$ORIGINAL_DIR"
+
+  echo "[Selfhost IPC Handler] DEPLOY_OPENPGPKEY_100TERRES_COM done. exit code: $DEPLOY_OPENPGPKEY_100TERRES_COM_EXIT_CODE" >&2
+
+  if [ $DEPLOY_OPENPGPKEY_100TERRES_COM_EXIT_CODE -eq 0 ]; then
+    echo "STATUS:SUCCESS"
+  else
+    echo "STATUS:FAILED"
+  fi
 else
-    echo "[Selfhost IPC Handler] Unknown $SIGNAL task" >&2
+  echo "[Selfhost IPC Handler] Unknown $SIGNAL task" >&2
   echo "STATUS:UNKNOWN_TASK"
 fi

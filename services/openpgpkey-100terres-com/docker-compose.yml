@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json
+
+services:
+  openpgpkey-100terres-com-proxy:
+    image: nginx:alpine
+    container_name: openpgpkey-100terres-com-proxy
+    restart: unless-stopped
+    expose:
+      - 80
+    volumes:
+      - ./nginx:/etc/nginx
+    networks:
+      - openpgpkey-100terres-com-default
+      - gateway-openpgpkey-100terres-com-resource
+  openpgpkey-100terres-com-server-a:
+    image: core.registry:5000/100terres/openpgpkey-100terres-com:latest
+    container_name: openpgpkey-100terres-com-server-a
+    restart: unless-stopped
+    expose:
+      - 80
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    networks:
+      - openpgpkey-100terres-com-default
+    environment:
+      - SERVER_HEALTH=true
+  openpgpkey-100terres-com-server-b:
+    image: core.registry:5000/100terres/openpgpkey-100terres-com:latest
+    container_name: openpgpkey-100terres-com-server-b
+    restart: unless-stopped
+    expose:
+      - 80
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    networks:
+      - openpgpkey-100terres-com-default
+    environment:
+      - SERVER_HEALTH=true
+networks:
+  openpgpkey-100terres-com-default:
+    name: openpgpkey-100terres-com-default
+  gateway-openpgpkey-100terres-com-resource:
+    name: gateway-openpgpkey-100terres-com-resource
+    external: true

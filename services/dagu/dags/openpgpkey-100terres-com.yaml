@@ -1,0 +1,35 @@
+description: Build openpgpkey.100terres.com
+
+type: chain
+retry_policy:
+  limit: 0
+
+container:
+  image: alpine:latest
+  user: root
+  keep_container: true
+  shell: ["/bin/sh", "-o", "errexit", "-o", "xtrace", "-o", "pipefail", "-c"]
+  network: host
+  volumes:
+    - /var/lib/selfhost-ipc-worker:/var/lib/selfhost-ipc-worker
+  env:
+    - DOCKER_HOST=tcp://dagu-docker-in-docker:2375
+
+steps:
+  - id: prepare
+    run: apk update && apk add --no-cache curl git ca-certificates docker-cli socat
+  - id: sync
+    continue_on: skipped
+    preconditions:
+      - condition: "${WEBHOOK_PAYLOAD}"
+        expected: "{}"
+    run: curl -f -i -X POST -H "Accept:\ application/json" -H "Authorization:\ token\ ${SELFHOST_FORGEJO_TOKEN}" http://forgejo:3000/api/v1/repos/100terres/openpgpkey.100terres.com/mirror-sync && sleep 5
+  - id: clone
+    run: git clone http://forgejo:3000/100terres/openpgpkey.100terres.com.git /openpgpkey-100terres-com
+  - id: build
+    run: cd /openpgpkey-100terres-com && docker build --pull -t core.registry:5000/100terres/openpgpkey-100terres-com:latest .
+  - id: push
+    run: cd /openpgpkey-100terres-com && docker push core.registry:5000/100terres/openpgpkey-100terres-com:latest
+  - id: deploy
+    run: |
+      RESPONSE=$(echo "DEPLOY_WIDGETS" | socat -t 300 - UNIX-CONNECT:"/var/lib/selfhost-ipc-worker/selfhost_ipc_worker.sock") && [ "$RESPONSE" = "STATUS:SUCCESS" ] && echo "Success: Task completed cleanly." || { echo "Error: Task failed or daemon is down. Response: '$RESPONSE'"; exit 1; }

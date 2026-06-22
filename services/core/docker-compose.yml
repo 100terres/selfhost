@@ -120,6 +120,8 @@ networks:
     name: gateway-dagu-resource
   gateway-forgejo-resource:
     name: gateway-forgejo-resource
+  gateway-openpgpkey-100terres-com-resource:
+    name: gateway-openpgpkey-100terres-com-resource
   gateway-personal-mastodon-instance-resource:
     name: gateway-personal-mastodon-instance-resource
   gateway-self-hosting-demo-resource:

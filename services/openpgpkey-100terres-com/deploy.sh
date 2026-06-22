@@ -5,8 +5,8 @@ rm -f ./nginx/active_service.conf
 cp ./active_service.conf.template ./nginx/active_service.conf
 docker compose up -d
 
-PROXY_SERVICE="widgets-proxy"
-SERVICES=("widgets-server-a" "widgets-server-b")
+PROXY_SERVICE="openpgpkey-100terres-com-proxy"
+SERVICES=("openpgpkey-100terres-com-server-a" "openpgpkey-100terres-com-server-b")
 
 for SERVICE in "${SERVICES[@]}"; do
     CONTAINER_ID=$(docker compose ps -q $SERVICE)

@@ -15,6 +15,7 @@ services/core/letsencrypt/*
 services/dagu/dags/*
 !services/dagu/dags/.keep
 !services/dagu/dags/docker-prune.yaml
+!services/dagu/dags/openpgpkey-100terres-com.yaml
 !services/dagu/dags/widgets.yaml
 
 # -------

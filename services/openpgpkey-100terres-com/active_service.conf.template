@@ -1,0 +1,2 @@
+server  openpgpkey-100terres-com-server-a:80;
+server  openpgpkey-100terres-com-server-b:80;
