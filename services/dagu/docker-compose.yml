@@ -12,8 +12,11 @@ services:
     healthcheck:
       test:
         [
-          "CMD-SHELL",
-          'exec 3<>/dev/tcp/localhost/8080 && printf "GET /api/v1/health HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n" >&3 && RESPONSE=$(cat <&3; exec 3>&-) && echo "--- LOGS ---" && echo "$RESPONSE" && if echo "$RESPONSE" | grep -q "healthy"; then echo "PASS"; exit 0; else echo "FAIL"; exit 1; fi || { echo "CONN_ERR"; exit 1; }',
+          "CMD",
+          "perl",
+          "-MIO::Socket::INET",
+          "-e",
+          'my $$s = IO::Socket::INET->new("localhost:8080") or exit 1; print $$s "GET /api/v1/health HTTP/1.0\r\n\r\n"; exit((join "", <$$s>) =~ /healthy/ ? 0 : 1)',
         ]
     links:
       - dagu-docker-in-docker
