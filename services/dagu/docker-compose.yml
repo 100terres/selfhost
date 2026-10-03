@@ -9,15 +9,6 @@ services:
       - default
       - core-registry
       - gateway-dagu-resource
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "perl",
-          "-MIO::Socket::INET",
-          "-e",
-          'my $$s = IO::Socket::INET->new("localhost:8080") or exit 1; print $$s "GET /api/v1/health HTTP/1.0\r\n\r\n"; exit((join "", <$$s>) =~ /healthy/ ? 0 : 1)',
-        ]
     links:
       - dagu-docker-in-docker
     depends_on:
