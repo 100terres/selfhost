@@ -4,6 +4,8 @@ type: chain
 retry_policy:
   limit: 0
 
+schedule: "0/15 * * * *"
+
 container:
   image: alpine:latest
   user: root
