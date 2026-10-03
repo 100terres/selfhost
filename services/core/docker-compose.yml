@@ -7,6 +7,7 @@ services:
     restart: unless-stopped
     env_file: .env
     networks:
+      - gateway-100terres-com-resource
       - gateway-dagu-resource
       - gateway-forgejo-resource
       - gateway-openpgpkey-100terres-com-resource
@@ -117,6 +118,8 @@ networks:
     name: core-registry
   docker-socket-proxy:
     name: docker-socket-proxy
+  gateway-100terres-com-resource:
+    name: gateway-100terres-com-resource
   gateway-dagu-resource:
     name: gateway-dagu-resource
   gateway-forgejo-resource:

@@ -52,3 +52,15 @@ cd services/widgets
 docker compose up --detach --wait --remove-orphans
 cd ../..
 printf "\ndone: Widgets\n"
+
+printf "\nstart: openpgpkey.100terres.com\n"
+cd services/openpgpkey-100terres-com
+docker compose up --detach --wait --remove-orphans
+cd ../..
+printf "\ndone: openpgpkey.100terres.com\n"
+
+printf "\nstart: 100terres.com\n"
+cd services/100terres-com
+docker compose up --detach --wait --remove-orphans
+cd ../..
+printf "\ndone: 100terres.com\n"

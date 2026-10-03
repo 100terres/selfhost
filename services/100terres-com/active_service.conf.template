@@ -1,0 +1,2 @@
+server  100terres-com-server-a:80;
+server  100terres-com-server-b:80;

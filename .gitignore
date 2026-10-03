@@ -14,6 +14,7 @@ services/core/letsencrypt/*
 
 services/dagu/dags/*
 !services/dagu/dags/.keep
+!services/dagu/dags/100terres-com.yaml
 !services/dagu/dags/docker-prune.yaml
 !services/dagu/dags/openpgpkey-100terres-com.yaml
 !services/dagu/dags/widgets.yaml
@@ -72,6 +73,18 @@ services/forgejo-runner/data
 # -------
 
 services/widgets/nginx/active_service.conf
+
+# ------------------------
+# openpgpkey.100terres.com
+# ------------------------
+
+services/openpgpkey-100terres-com/nginx/active_service.conf
+
+# -------------
+# 100terres.com
+# -------------
+
+services/100terres-com/nginx/active_service.conf
 
 # ---
 # env

@@ -32,4 +32,4 @@ steps:
     run: cd /openpgpkey-100terres-com && docker push core.registry:5000/100terres/openpgpkey-100terres-com:latest
   - id: deploy
     run: |
-      RESPONSE=$(echo "DEPLOY_WIDGETS" | socat -t 300 - UNIX-CONNECT:"/var/lib/selfhost-ipc-worker/selfhost_ipc_worker.sock") && [ "$RESPONSE" = "STATUS:SUCCESS" ] && echo "Success: Task completed cleanly." || { echo "Error: Task failed or daemon is down. Response: '$RESPONSE'"; exit 1; }
+      RESPONSE=$(echo "DEPLOY_OPENPGPKEY_100TERRES_COM" | socat -t 300 - UNIX-CONNECT:"/var/lib/selfhost-ipc-worker/selfhost_ipc_worker.sock") && [ "$RESPONSE" = "STATUS:SUCCESS" ] && echo "Success: Task completed cleanly." || { echo "Error: Task failed or daemon is down. Response: '$RESPONSE'"; exit 1; }

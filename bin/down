@@ -7,6 +7,8 @@ docker compose --file services/forgejo-runner/docker-compose.yml down
 docker compose --file services/self-hosting-demo/docker-compose.yml down
 docker compose --file services/dagu/docker-compose.yml down
 docker compose --file services/widgets/docker-compose.yml down
+docker compose --file services/openpgpkey-100terres-com/docker-compose.yml down
+docker compose --file services/100terres-com/docker-compose.yml down
 
 # Always last
 docker compose --file services/core/docker-compose.yml down
