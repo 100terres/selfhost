@@ -64,3 +64,6 @@ for SERVICE in "${SERVICES[@]}"; do
 
     echo "$SERVICE update complete!"
 done
+
+# Reload ngnix config
+docker compose exec $PROXY_SERVICE nginx -t && docker compose exec $PROXY_SERVICE nginx -s reload
