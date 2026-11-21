@@ -2,10 +2,16 @@
 
 services:
   newt:
-    image: fosrl/newt:1.19.0
+    image: fosrl/newt:1.20.1
     container_name: newt
     restart: unless-stopped
     env_file: .env
+    environment:
+      - USE_NATIVE_MAIN_INTERFACE=true
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
     networks:
       - gateway-100terres-com-resource
       - gateway-dagu-resource
