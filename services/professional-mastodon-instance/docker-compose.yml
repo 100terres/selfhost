@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json
+
 services:
   professional-mastodon-instance-web:
     image: ghcr.io/mastodon/mastodon:v4.7.6
@@ -8,6 +10,9 @@ services:
     depends_on:
       - professional-mastodon-instance-postgres
       - professional-mastodon-instance-redis
+    networks:
+      - default
+      - gateway-professional-mastodon-instance-resource
     healthcheck:
       test:
         [
@@ -35,6 +40,9 @@ services:
     depends_on:
       - professional-mastodon-instance-postgres
       - professional-mastodon-instance-redis
+    networks:
+      - default
+      - gateway-professional-mastodon-instance-resource
     healthcheck:
       test:
         [
@@ -135,6 +143,9 @@ services:
 networks:
   default:
     name: intranet
+    external: true
+  gateway-professional-mastodon-instance-resource:
+    name: gateway-professional-mastodon-instance-resource
     external: true
 
 secrets:
